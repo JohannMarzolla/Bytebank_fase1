@@ -1,20 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import logo from "@/assets/logo.svg";
 import { useRouter } from "next/navigation";
 
 export default function Header() {
   const router = useRouter();
 
-  function navegarLogin() {
-    router.push("/login");
-  }
-
   return (
     <header className="w-full bg-black h-24 flex justify-between items-center pl-20 pr-20 ">
       <div>
-        <Image src={logo} alt="Logo" />
+        <Image src="/logo.svg" width={150} height={80} alt="Logo" />
       </div>
 
       <div className="flex gap-6">

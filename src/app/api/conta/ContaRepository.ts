@@ -1,4 +1,4 @@
-import { Conta } from "@/app/shared/models/Conta";
+import { Conta } from "@/shared/models/Conta";
 import { PrismaClient } from "@prisma/client";
 
 export default class ContaRepository {

@@ -1,10 +1,9 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
-import Input from "../components/Input";
-import InputCheckbox from "../components/InputCheckbox";
-import validaEmail from "../shared/utils/validaEmail";
+import Input from "@/components/forms/Input";
+import InputCheckbox from "@/components/forms/InputCheckbox";
+import validaEmail from "@/shared/utils/validaEmail";
 
 interface NovaContaDTO {
   nome: string;

@@ -1,5 +1,5 @@
-import validaEmail from "@/app/shared/utils/validaEmail";
-import NextAuth from "next-auth";
+import validaEmail from "@/shared/utils/validaEmail";
+import NextAuth, { AuthOptions, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import ContaRepository from "../../conta/ContaRepository";
 
@@ -7,10 +7,23 @@ declare module "next-auth" {
   interface User {
     id: number;
   }
+  interface Session {
+    user: {
+      id: number; // Adiciona o campo `id` ao user
+      name: string;
+      email: string;
+      image?: string;
+    };
+  }
 }
 
-const handler = NextAuth({
-  pages: { signIn: "/login" },
+declare module "next-auth/jwt" {
+  interface JWT {
+    id: number; // Adiciona o campo `id` ao JWT token
+  }
+}
+
+export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -31,6 +44,24 @@ const handler = NextAuth({
       },
     }),
   ],
-});
+  session: {
+    strategy: "jwt",
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = (user as User).id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token?.id) {
+        session.user.id = token.id;
+      }
+      return session;
+    },
+  },
+};
 
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

@@ -1,10 +1,10 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
-import Input from "../components/Input";
-import validaEmail from "../shared/utils/validaEmail";
+import Input from "@/components/forms/Input";
+import validaEmail from "@/shared/utils/validaEmail";
 
 interface LoginForm {
   email?: string;
@@ -20,6 +20,7 @@ export default function LoginForm() {
   const error = searchParams.get("error");
   const [formValues, setFormValues] = useState<LoginForm>({});
   const [errors, setErrors] = useState<LoginFormErrors>({});
+  const router = useRouter();
 
   function handleOnChange(field: string, value: any) {
     setFormValues({ ...formValues, [field]: value });
@@ -32,10 +33,16 @@ export default function LoginForm() {
     setErrors(errors);
 
     if (Object.keys(errors).length === 0) {
-      signIn("credentials", {
+      const result = await signIn("credentials", {
         ...formValues,
-        callbackUrl: "/home",
+        redirect: false,
       });
+
+      if (result?.ok) {
+        router.push("/home");
+      } else {
+        alert("Login falhou");
+      }
     }
   }
 

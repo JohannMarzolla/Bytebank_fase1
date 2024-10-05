@@ -1,18 +1,19 @@
-// /app/page.js
-import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import Container from "../components/contanier";
-import { getSaldo, getTransacoes } from "@/app/services/transacoesServices";
+import Container from "../../components/contanier";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { SessionProvider } from "../../context/SessionContext";
 
 export default async function Home() {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   if (!session) {
     redirect("/login");
   }
 
-
   return (
-    <Container />
+    <SessionProvider session={session}>
+      <Container />;
+    </SessionProvider>
   );
 }

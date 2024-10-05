@@ -1,4 +1,4 @@
-import validaEmail from "@/app/shared/utils/validaEmail";
+import validaEmail from "@/shared/utils/validaEmail";
 import { NextResponse } from "next/server";
 import ContaRepository from "./ContaRepository";
 

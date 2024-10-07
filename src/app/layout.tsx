@@ -15,10 +15,10 @@ export default function RootLayout({
   return (
     <TransacoesProvider>
       <html lang="pt-br">
-        <body>
+        <body className="h-screen w-screen bg-[#E4EDE3]">
           <Header />
 
-          <div>{children}</div>
+          <main className="h-full w-full">{children}</main>
         </body>
       </html>
     </TransacoesProvider>

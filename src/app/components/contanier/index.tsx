@@ -10,13 +10,13 @@ export default function Container() {
   const { deposito, transferencia, novaTransacao } = useTransacoesContext();
 
   return (
-    <main className="flex flex-col md:flex-row">
+    <div className="flex flex-col md:flex-row justify-center">
       <Aside />
-      <div className="flex-1 p-4">
+      <div className="flex-1 p-4 max-w-[690px]">
         <Saldo />
         <Form deposito={deposito} transferencia={transferencia} novaTransacao={novaTransacao} />
       </div>
       <Extrato />
-    </main>
+    </div>
   );
 }

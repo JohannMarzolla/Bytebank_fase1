@@ -14,7 +14,7 @@ export default function Saldo() {
   const saldoFormato = saldo ? formatarMoeda(saldo) : "Saldo indisponível no momento";
 
   return (
-    <div className="flex relative w-full h-[400px] mb-8 text-white bg-[#004D61] rounded-[8px]">
+    <div className="flex relative justify-between w-full h-[400px] mb-8 text-white bg-[#004D61] rounded-[8px]">
       <div className="flex flex-col pl-8 pt-8">
         <span className="pb-5 text-[25px] font-semibold"> Olá, {session?.user?.name}!</span>
         <span className="text-sm">{date}</span>
@@ -27,7 +27,7 @@ export default function Saldo() {
         />
       </div>
 
-      <div className="flex flex-col pt-24 text-xl">
+      <div className="flex flex-col pt-24 pr-32 text-xl">
         <h2 className="text-lg font-bold pb-2 border-b-2 border-white">Saldo</h2>
         <span className="text-base pt-4">Conta Corrente</span>
         <span className="text-3xl pt-1">{saldoFormato}</span>

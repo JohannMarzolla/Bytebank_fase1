@@ -11,7 +11,7 @@ export default function Extrato() {
       <ul>
         {transacoes.length > 0 ? (
           transacoes.map((tran) => (
-            <li key={tran.id}>
+            <li key={tran.userId}>
               {tran.tipoDeposito} - {tran.valor} - {tran.date}
             </li>
           ))

@@ -15,4 +15,22 @@ model Conta {
   email   String
   nome    String
   senha   String
+  saldo   Saldo?
+  transacoes Transacao[]
+  }
+
+model Transacao{
+  id Int @id @default(autoincrement())
+  tipoTransacao String
+  valor Float?
+  date DateTime?
+  contaId Int
+  conta Conta  @relation(fields: [contaId], references: [id]) 
+}
+
+model Saldo {
+  id  Int @id  @default(autoincrement())
+  total Float
+  contaId Int @unique
+  conta  Conta  @relation(fields: [contaId], references: [id]) 
 }

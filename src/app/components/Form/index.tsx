@@ -1,18 +1,23 @@
 import { useState } from "react";
 import { TipoTransacao } from "../../../shared/types/TipoTransacao";
+import { Session } from "next-auth";
 
 type FormularioProps = {
   deposito: (valor: number) => void;
   transferencia: (valor: number) => void;
-  novaTransacao: (tipo: string, valor: number, date: string) => void;
+  novaTransacao: (tipo: string, valor: number, date: string, userId : number) => void;
+  userId : number 
 };
 
-export default function Form({ deposito, transferencia, novaTransacao }: FormularioProps) {
+export default function Form({ deposito, transferencia, novaTransacao ,userId  }: FormularioProps) {
   const [formData, setFormData] = useState({
     tipoDeposito: "",
     valor: 0,
     date: "",
   });
+
+  console.log('user id formulario',userId)  
+
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,7 +42,7 @@ export default function Form({ deposito, transferencia, novaTransacao }: Formula
   const processarTransacao = () => {
     const { tipoDeposito, valor, date } = formData;
 
-    novaTransacao(tipoDeposito, valor, date);
+    novaTransacao(tipoDeposito, valor, date, userId);
 
     if (tipoDeposito === TipoTransacao.DEPOSITO) {
       deposito(valor);

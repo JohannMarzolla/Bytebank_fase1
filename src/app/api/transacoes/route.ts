@@ -1,54 +1,49 @@
-// app/api/transacoes/route.ts
-import { NextResponse } from 'next/server';
+import { error } from 'console';
+import { NextRequest, NextResponse } from 'next/server';
+import TransacoesRepository from './transacoesRepository';
 
-// Dados mockados de transações
-const transacoes: any[] = [
-  {
-    id: 1,
-    tipoDeposito: 'deposito',
-    valor: 200,
-    date: '10/10/2010',
-  },
-  {
-    id: 2,
-    tipoDeposito: 'deposito',
-    valor: 200,
-    date: '10/11/2010',
-  },
-];
+const transacoesRepository = new TransacoesRepository();
 
-// Método GET para retornar todas as transações
-export async function GET() {
-  return NextResponse.json(transacoes); // Retorna as transações mockadas como JSON
-}
+export async function GET(req : NextRequest) {
+  const userId = parseInt(req.nextUrl.searchParams.get('userId') || '0', 10);
 
-// Tipo de parâmetros que você espera receber no POST
-interface NovaTransacaoParams {
-  tipoDeposito: string;
-  valor: number;
-  date: string;
-}
+  if (!userId) {
+    return Response.json({ error: "userId não fornecido." }, { status: 400 });
+  }
 
-// Método POST para adicionar uma nova transação
-export async function POST(req: Request) {
   try {
-    // Recebe os dados da requisição POST (corpo da requisição)
-    const { tipoDeposito, valor, date }: NovaTransacaoParams = await req.json();
-
-    // Cria uma nova transação
-    const novaTransacao = {
-      id: transacoes.length + 1, // Gera o ID automaticamente com base na quantidade atual de transações
-      tipoDeposito,
-      valor,
-      date,
-    };
-
-    // Adiciona a nova transação ao array de transações
-    transacoes.push(novaTransacao);
-
-    // Retorna a nova transação como resposta
-    return NextResponse.json(novaTransacao);
+    const transacoes =  await transacoesRepository.getTransacoesByUserId(userId)
+    
+    if(!transacoes){
+      
+      return Response.json({ error: "transacao não encontrado." }, { status: 404 }); 
+    }
+    return Response.json(transacoes);
+   
+    
   } catch (error) {
-    return NextResponse.json({ error: 'Erro ao adicionar a transação' }, { status: 400 });
+    console.error("Erro ao buscar transações:", error);
+    return Response.json({ error: "Erro ao buscar transacao." }, { status: 500 }); 
+  }
+}
+
+export async function POST(req: Request) {
+  const body = await req.json()
+  const {userId , tipoDeposito , valor, date} = body
+
+  try {
+    if (!userId) {
+      return NextResponse.json({ error: "userId não fornecido." }, { status: 400 });
+    }
+
+    const transacoesRepository = new TransacoesRepository();
+
+    const novaTransacao = await transacoesRepository.createTransacao(userId, tipoDeposito, valor, date);
+
+    return Response.json(novaTransacao,{status:201})
+
+  } catch (error) {
+    console.error("Erro ao criar transação:", error);
+    return NextResponse.json({ error: "Erro ao criar transação." }, { status: 500 });
   }
 }

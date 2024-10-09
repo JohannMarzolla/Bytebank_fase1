@@ -1,17 +1,61 @@
-// app/api/saldo/route.ts
-import { NextResponse } from 'next/server';
+import { NextRequest } from "next/server";
+import SaldoRepository from "./saldoRepository";
 
-// Variável para manter o saldo em memória (apenas para fins de exemplo)
-let saldo = 1000;
+const saldoRepository = new SaldoRepository(); 
 
-// Método GET para obter o saldo
-export async function GET() {
-  return NextResponse.json({ saldo });
+export async function GET(req: NextRequest) {
+  const userId = parseInt(req.nextUrl.searchParams.get('userId') || '0', 10); 
+  
+  if (!userId) {
+    return Response.json({ error: "userId não fornecido." }, { status: 400 });
+  }
+
+  try {
+    const saldo = await saldoRepository.findByUserId(userId); 
+    
+    if (!saldo) {
+      return Response.json({ error: "Saldo não encontrado." }, { status: 404 }); 
+    }
+
+    return Response.json(saldo); 
+  } catch (error) {
+    console.error('Erro ao buscar saldo:', error);
+    return Response.json({ error: "Erro ao buscar saldo." }, { status: 500 }); 
+  }
 }
 
-// Método POST para atualizar o saldo
 export async function POST(req: Request) {
-  const { novoSaldo } = await req.json();
-  saldo = novoSaldo;
-  return NextResponse.json({ saldo });
+  try {
+    const { userId, initialBalance } = await req.json(); 
+    
+    if (typeof userId !== 'number' || typeof initialBalance !== 'number') {
+      return Response.json({ error: "userId e initialBalance devem ser números." }, { status: 400 });
+    }
+    const novoSaldo = await saldoRepository.createSaldo(userId, initialBalance);
+
+    return Response.json(novoSaldo, { status: 201 });
+  } catch (error) {
+    console.error('Erro ao criar saldo:', error);
+    return Response.json({ error: "Erro ao criar saldo." }, { status: 500 });
+  }
+}
+
+export async function PUT(req: Request) {
+  try {
+    const body = await req.json();
+    console.log("Dados recebidos backend PUT:", body); 
+    const { userId, newBalance } = body;
+
+    if (typeof userId !== 'number' || typeof newBalance !== 'number') {
+      return new Response(JSON.stringify({ error: "userId e newBalance devem ser números." }), { status: 400 });
+    }
+
+    const saldoRepository = new SaldoRepository();
+    const updatedSaldo = await saldoRepository.updateSaldo(userId, newBalance);
+    
+    return new Response(JSON.stringify(updatedSaldo), { status: 200 });
+  } catch (error) {
+    console.error('Erro ao atualizar saldo:', error);
+    return new Response(JSON.stringify({ error: "Erro ao atualizar saldo." }), { status: 500 });
+  }
 }

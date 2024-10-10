@@ -1,25 +1,22 @@
 import { Transacao } from "@prisma/client";
-import { PrismaClient } from "@prisma/client/extension";
-import { DateTime } from "next-auth/providers/kakao";
+import { PrismaClient } from "@prisma/client";
 
-export default class TransacoesRepository{
+export default class TransacoesRepository {
+    private db: PrismaClient = new PrismaClient();
 
-    private db : PrismaClient = new PrismaClient();
-    async getTransacoesByUserId(userId: number): Promise<Transacao[] | null> { // Retorna um array
+    async getTransacoesByUserId(userId: number): Promise<Transacao[] | null> {
         return this.db.transacao.findMany({
-            where: { contaId: userId } // Isso retornará todas as transações relacionadas ao userId
+            where: { contaId: userId }
         });
     }
-
-    async createTransacao(userId:number,tipoDeposito: string , valor: number, date: DateTime){
+    async createTransacao(userId: number, tipoTransacao: string, valor: number, date: Date) {
         return this.db.transacao.create({
-            data:{
-                contaId : userId,
-                tipoDeposito,
+            data: {
+                contaId: userId,
+                tipoTransacao, 
                 valor,
                 date
             }
-        })
-
+        });
     }
 }

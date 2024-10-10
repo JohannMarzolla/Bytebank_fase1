@@ -11,13 +11,10 @@ type FormularioProps = {
 
 export default function Form({ deposito, transferencia, novaTransacao ,userId  }: FormularioProps) {
   const [formData, setFormData] = useState({
-    tipoDeposito: "",
+    tipoTransacao: "",
     valor: 0,
     date: "",
   });
-
-  console.log('user id formulario',userId)  
-
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,7 +25,7 @@ export default function Form({ deposito, transferencia, novaTransacao ,userId  }
     }
 
     processarTransacao();
-    setFormData({ tipoDeposito: "", valor: 0, date: "" });
+    setFormData({ tipoTransacao: "", valor: 0, date: "" });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -40,13 +37,13 @@ export default function Form({ deposito, transferencia, novaTransacao ,userId  }
   };
 
   const processarTransacao = () => {
-    const { tipoDeposito, valor, date } = formData;
+    const { tipoTransacao, valor, date } = formData;
 
-    novaTransacao(tipoDeposito, valor, date, userId);
+    novaTransacao(tipoTransacao, valor, date, userId);
 
-    if (tipoDeposito === TipoTransacao.DEPOSITO) {
+    if (tipoTransacao === TipoTransacao.DEPOSITO) {
       deposito(valor);
-    } else if (tipoDeposito === TipoTransacao.TRANSFERENCIA) {
+    } else if (tipoTransacao === TipoTransacao.TRANSFERENCIA) {
       transferencia(valor);
     } else {
       throw new Error("Tipo de Transação é inválido!");
@@ -54,7 +51,7 @@ export default function Form({ deposito, transferencia, novaTransacao ,userId  }
   };
 
   const isFormValid = () => {
-    if (!formData.tipoDeposito || formData.valor <= 0 || !formData.date) return false;
+    if (!formData.tipoTransacao || formData.valor <= 0 || !formData.date) return false;
     return true;
   };
 
@@ -62,8 +59,8 @@ export default function Form({ deposito, transferencia, novaTransacao ,userId  }
     <>
       <form className="flex flex-col space-y-4" onSubmit={handleSubmit}>
         <select
-          name="tipoDeposito"
-          value={formData.tipoDeposito}
+          name="tipoTransacao"
+          value={formData.tipoTransacao}
           onChange={handleChange}
           className="border border-gray-300 rounded p-2"
         >

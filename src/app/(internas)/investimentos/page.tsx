@@ -7,7 +7,7 @@ import Extrato from "../../components/Extrato";
 export default async function transferencias() {
   const session = await getServerSession();
 
-  // Redireciona o usuário para a página de login se não houver sessão
+  
   if (!session) {
     redirect("/login");
     return null;

@@ -1,5 +1,6 @@
 interface Transacao {
-  tipoDeposito: string;
+  userId : number;
+  tipoTransacao: string;
   valor: number;
   date: string;
 }
@@ -41,16 +42,32 @@ export const getTransacoes = async (userId : number ) => {
 };
 
 export const postTransacao = async (transacao: Transacao) => {
+  console.log('transacao', transacao);
+  
+ 
+  const { date, tipoTransacao, valor, userId } = transacao;
+  const dataObjeto = new Date(date);  
+  const valorNumerico = Number(valor);  
+  
+
+
   const response = await fetch(`${API_URL}/transacoes`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({transacao}),
+    body: JSON.stringify({
+      date: dataObjeto.toISOString(), 
+      tipoTransacao,
+      valor: valorNumerico,
+      userId
+    }),
   });
+
   if (!response.ok) {
     throw new Error('Erro ao adicionar transação');
   }
+
   const data = await response.json();
   return data;
 };

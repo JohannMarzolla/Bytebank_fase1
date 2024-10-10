@@ -42,12 +42,14 @@ export async function POST(req: Request) {
 
 export async function PUT(req: Request) {
   try {
-    const body = await req.json();
-    console.log("Dados recebidos backend PUT:", body); 
+    const body = await req.json(); 
     const { userId, newBalance } = body;
 
     if (typeof userId !== 'number' || typeof newBalance !== 'number') {
       return new Response(JSON.stringify({ error: "userId e newBalance devem ser números." }), { status: 400 });
+    }
+    if(newBalance < 0){
+      return new Response(JSON.stringify({ error: " e newBalance deve ser maior que zero." }), { status: 400 });
     }
 
     const saldoRepository = new SaldoRepository();

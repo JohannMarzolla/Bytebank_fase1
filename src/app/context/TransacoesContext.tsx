@@ -4,7 +4,7 @@ import { getSaldo, postSaldo, getTransacoes, postTransacao } from "../services/t
 
 interface Transacao {
   userId: number,
-  tipoDeposito: string;
+  tipoTransacao: string;
   valor: number;
   date: string;
 }
@@ -14,7 +14,8 @@ interface TransacoesContextData {
   saldo: number;
   deposito: (number: number) => Promise<void>;
   transferencia: (number: number) => Promise<void>;
-  novaTransacao: (tipoDeposito: string, valor: number, date: string, userId : number) => Promise<void>;
+  novaTransacao: (
+  tipoTransacao: string, valor: number, date: string, userId : number) => Promise<void>;
 }
 
 interface TransacoesProviderProps {
@@ -99,21 +100,22 @@ export function TransacoesProvider({ children , session}: TransacoesProviderProp
     try {
       if (!user?.id) throw new Error("Usuário não autenticado.");
       const novoSaldo = saldo - valor;
-      await postSaldo(Number(user.id), Number(novoSaldo)); // user.id é necessário para o postSaldo
+      await postSaldo(Number(user.id), Number(novoSaldo)); 
       await atualizarSaldo();
     } catch (error) {
       console.error("Erro ao realizar transferência:", error);
     }
   };
 
-  const novaTransacao = async (tipoDeposito: string, valor: number, date: string, userId: number) => {
+  const novaTransacao = async (tipoTransacao: string, valor: number, date: string, userId: number) => {
     const transacao: Transacao = {
       userId,
-      tipoDeposito,
+      tipoTransacao,
       valor,
       date,
     };
     await postTransacao(transacao);
+    console.log('transacao apos post em context ', transacao)
     await atualizaTransacoes();
     setTransacoes((prevTransacoes) => [...prevTransacoes, transacao]);
   };

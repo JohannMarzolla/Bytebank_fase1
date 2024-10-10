@@ -11,9 +11,14 @@ export default function Extrato() {
       <ul>
         {transacoes.length > 0 ? (
           transacoes.map((tran) => (
-            <li key={tran.userId}>
-              {tran.tipoDeposito} - {tran.valor} - {tran.date}
-            </li>
+            <ul style={{display:"flex",flexDirection:"column", }} key={tran.userId}>
+              <ul>
+              <li> {tran.tipoTransacao}</li>
+                <li> R${tran.valor}  {tran.date} </li>
+               
+            </ul>
+              </ul>
+             
           ))
         ) : (
           <li>Nenhuma transação encontrada</li>

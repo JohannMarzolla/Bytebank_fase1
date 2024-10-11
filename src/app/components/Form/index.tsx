@@ -5,11 +5,11 @@ import { Session } from "next-auth";
 type FormularioProps = {
   deposito: (valor: number) => void;
   transferencia: (valor: number) => void;
-  novaTransacao: (tipo: string, valor: number, date: string, userId : number) => void;
-  userId : number 
+  novaTransacao: (tipo: string, valor: number, date: string, userId: number) => void;
+  userId: number;
 };
 
-export default function Form({ deposito, transferencia, novaTransacao ,userId  }: FormularioProps) {
+export default function Form({ deposito, transferencia, novaTransacao, userId }: FormularioProps) {
   const [formData, setFormData] = useState({
     tipoTransacao: "",
     valor: 0,
@@ -58,34 +58,52 @@ export default function Form({ deposito, transferencia, novaTransacao ,userId  }
   return (
     <>
       <form className="flex flex-col space-y-4" onSubmit={handleSubmit}>
-        <select
-          name="tipoTransacao"
-          value={formData.tipoTransacao}
-          onChange={handleChange}
-          className="border border-gray-300 rounded p-2"
-        >
-          <option value="" disabled>
-            Selecione o tipo de transação
-          </option>
-          <option value="transferencia">transferência</option>
-          <option value="deposito">deposito</option>
-        </select>
-        <input
-          name="valor"
-          type="number"
-          value={formData.valor}
-          onChange={handleChange}
-          placeholder="Valor"
-          className="border border-gray-300 rounded p-2"
-        />
-        <input
-          name="date"
-          type="date"
-          value={formData.date}
-          onChange={handleChange}
-          placeholder="Data"
-          className="border border-gray-300 rounded p-2"
-        />
+        <div className="flex flex-col">
+          <label htmlFor="tipoTransacao" className="text-sm font-bold">
+            Nova transação
+          </label>
+          <select
+            name="tipoTransacao"
+            value={formData.tipoTransacao}
+            onChange={handleChange}
+            className="border border-gray-300 rounded p-2"
+          >
+            <option value="" disabled>
+              Selecione o tipo de transação
+            </option>
+            <option value="transferencia">transferência</option>
+            <option value="deposito">deposito</option>
+          </select>
+        </div>
+
+        <div className="flex flex-col">
+          <label htmlFor="valor" className="text-sm font-bold">
+            Valor
+          </label>
+          <input
+            name="valor"
+            type="number"
+            value={formData.valor}
+            onChange={handleChange}
+            placeholder="Valor"
+            className="border border-gray-300 rounded p-2"
+          />
+        </div>
+
+        <div className="flex flex-col">
+          <label htmlFor="date" className="text-sm font-bold">
+            Data
+          </label>
+          <input
+            name="date"
+            type="date"
+            value={formData.date}
+            onChange={handleChange}
+            placeholder="Data"
+            className="border border-gray-300 rounded p-2"
+          />
+        </div>
+
         <button type="submit" className="btn bg-[#47A138] text-white rounded p-2 hover:bg-blue-600 transition">
           Adicionar Transação
         </button>

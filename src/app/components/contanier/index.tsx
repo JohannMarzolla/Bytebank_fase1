@@ -1,25 +1,17 @@
 "use client";
 
-import { useSessionContext } from "@/app/context/SessionContext";
-import { useTransacoesContext } from "../../context/TransacoesContext";
 import Aside from "../Aside";
+import CardNovaTransacao from "../CardNovaTransacao";
 import Extrato from "../Extrato";
-import Form from "../Form";
 import Saldo from "../Saldo";
-import { log } from "console";
 
 export default function Container() {
-  const { deposito, transferencia, novaTransacao } = useTransacoesContext();
-  const session = useSessionContext();
-  const userId = Number(session?.user.id)
- 
-
   return (
-    <div className="flex flex-col md:flex-row justify-center">
+    <div className="flex flex-col lg:flex-row justify-center pl-[3.75rem] pr-[3.75rem] w-full">
       <Aside />
-      <div className="flex-1 p-4 max-w-[690px]">
+      <div className="flex flex-col w-full lg:p-4 lg:max-w-[690px]">
         <Saldo />
-        <Form deposito={deposito} transferencia={transferencia} novaTransacao={novaTransacao} userId={userId} />
+        <CardNovaTransacao />
       </div>
       <Extrato />
     </div>

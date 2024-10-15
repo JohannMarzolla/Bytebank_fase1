@@ -2,7 +2,7 @@
 
 import { useSessionContext } from "@/app/context/SessionContext";
 import { useTransacoesContext } from "../../context/TransacoesContext";
-import Form from "../Form";
+import FormNovaTransacao from "../FormNovaTransacao";
 import Image from "next/image";
 
 export default function CardNovaTransacao() {
@@ -13,7 +13,12 @@ export default function CardNovaTransacao() {
   return (
     <div className="flex relative w-full h-[400px] mb-8 text-white bg-[#CBCBCB] rounded-[8px]">
       <div className="z-10 p-8">
-        <Form deposito={deposito} transferencia={transferencia} novaTransacao={novaTransacao} userId={userId} />
+        <FormNovaTransacao
+          deposito={deposito}
+          transferencia={transferencia}
+          novaTransacao={novaTransacao}
+          userId={userId}
+        />
       </div>
 
       <Image

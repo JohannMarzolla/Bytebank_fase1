@@ -84,9 +84,9 @@ export default function NovaContaForm() {
   }
 
   return (
-    <div className="bg-white h-full max-w-[93%]  overflow-hidden">
+    <div className="max-w-[93%] overflow-hidden h-auto">
       <form
-        className="bg-white p-12 rounded-lg lg:w-[650px] max-w-full flex justify-center items-center flex-col gap-6"
+        className="flex flex-col justify-center items-center lg:w-[650px] bg-[#F8F8F8] p-12 rounded-lg w-96 max-w-full gap-6"
         onSubmit={criarConta}
         autoComplete="off"
       >

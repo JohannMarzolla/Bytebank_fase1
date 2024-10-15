@@ -1,71 +1,68 @@
 interface Transacao {
-  userId : number;
+  userId: number;
   tipoTransacao: string;
   valor: number;
   date: string;
 }
 
-const API_URL = '/api'; 
+const API_URL = "/api";
 
 export const getSaldo = async (userId: number) => {
   const response = await fetch(`${API_URL}/saldo?userId=${userId}`);
   if (!response.ok) {
-    throw new Error('Erro ao buscar saldo');
+    throw new Error("Erro ao buscar saldo");
   }
   const data = await response.json();
-  const saldo = data.total
+  const saldo = data.total;
   return saldo;
 };
 
-export const postSaldo = async (userId: number , newBalance: number) => {
+export const postSaldo = async (userId: number, newBalance: number) => {
   const response = await fetch(`${API_URL}/saldo`, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify({userId, newBalance : Number(newBalance) }),
+    body: JSON.stringify({ userId, newBalance: Number(newBalance) }),
   });
   if (!response.ok) {
-    throw new Error('Erro ao atualizar saldo');
+    throw new Error("Erro ao atualizar saldo");
   }
   const data = await response.json();
   return data;
 };
 
-export const getTransacoes = async (userId : number ) => {
+export const getTransacoes = async (userId: number) => {
   const response = await fetch(`${API_URL}/transacoes?userId=${userId}`);
   if (!response.ok) {
-    throw new Error('Erro ao buscar transações');
+    throw new Error("Erro ao buscar transações");
   }
   const data = await response.json();
   return data;
 };
 
 export const postTransacao = async (transacao: Transacao) => {
-  console.log('transacao', transacao);
-  
- 
-  const { date, tipoTransacao, valor, userId } = transacao;
-  const dataObjeto = new Date(date);  
-  const valorNumerico = Number(valor);  
-  
+  console.log("transacao", transacao);
 
+  const { date, tipoTransacao, valor, userId } = transacao;
+  const dataObjeto = new Date(date);
+  const valorNumerico = Number(valor);
 
   const response = await fetch(`${API_URL}/transacoes`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      date: dataObjeto.toISOString(), 
+      date: dataObjeto.toISOString(),
       tipoTransacao,
       valor: valorNumerico,
-      userId
+      userId,
     }),
   });
 
   if (!response.ok) {
-    throw new Error('Erro ao adicionar transação');
+    throw new Error("Erro ao adicionar transação");
   }
 
   const data = await response.json();

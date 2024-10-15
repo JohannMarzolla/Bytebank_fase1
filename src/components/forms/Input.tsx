@@ -17,12 +17,12 @@ export default function Input(options: InputOptions) {
   }
 
   return (
-    <div className="flex flex-col gap-1 w-full">
-      <label htmlFor="{options.name}" className="text-sm font-bold">
+    <div className="flex flex-col gap-1 w-full h-full">
+      <label htmlFor={options.name} className="text-sm font-bold">
         {options.label}
       </label>
       <input
-        className="input input-bordered w-full"
+        className="input bg-white border-[1px] border-[#DEE9EA] w-full"
         name={options.name}
         type={options.type}
         placeholder={options.placeholder}

@@ -1,6 +1,7 @@
 "use client";
 
 import { ChangeEvent } from "react";
+import InputLabel from "./InputLabel";
 
 export interface InputSelectOptions {
   name: string;
@@ -8,6 +9,7 @@ export interface InputSelectOptions {
   placeholder?: string;
   error?: string;
   options?: InputSelectOption[];
+  style?: "ligth" | "dark";
   onValueChanged: { (value: any): void };
 }
 
@@ -17,18 +19,18 @@ export interface InputSelectOption {
 }
 
 export default function InputSelect(options: InputSelectOptions) {
+  const style = options.style ?? "ligth";
+
   function onValueChanged(event: ChangeEvent<HTMLSelectElement>) {
     options.onValueChanged(event.target.value);
   }
 
   return (
     <div className="flex flex-col gap-1 w-full">
-      <label htmlFor={options.name} className="text-sm font-bold">
-        {options.label}
-      </label>
+      <InputLabel htmlFor={options.name} text={options.label} />
       {/* className="border border-gray-300 rounded p-2" */}
       <select
-        className="input input-bordered w-full border-[1px] border-[#004D61]"
+        className={`input w-full border-[1px] ${style === "ligth" ? "border-[#DEE9EA]" : "border-[#004D61]"}`}
         name={options.name}
         onChange={onValueChanged}
       >

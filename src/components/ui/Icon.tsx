@@ -6,6 +6,5 @@ export interface IconOptions {
 }
 
 export default function Icon(options: IconOptions) {
-  const combinedClassName = `material-icons ${options.className}`;
-  return <span className={combinedClassName}>{options.name}</span>;
+  return <span className={`material-icons ${options.className || ""}`}>{options.name}</span>;
 }

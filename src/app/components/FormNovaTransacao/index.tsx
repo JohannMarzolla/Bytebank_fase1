@@ -2,6 +2,7 @@ import { useState } from "react";
 import { TipoTransacao } from "../../../shared/types/TipoTransacao";
 import InputSelect, { InputSelectOption } from "@/components/forms/InputSelect";
 import Input from "@/components/forms/Input";
+import Button from "@/components/ui/Button";
 
 type FormularioProps = {
   deposito: (valor: number) => void;
@@ -19,7 +20,7 @@ export default function FormNovaTransacao({ deposito, transferencia, novaTransac
 
   const tiposTransacao: InputSelectOption[] = [
     { value: "transferencia", label: "Transferência" },
-    { value: "deposito", label: "deposito" },
+    { value: "deposito", label: "Depósito" },
   ];
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -58,22 +59,31 @@ export default function FormNovaTransacao({ deposito, transferencia, novaTransac
   };
 
   return (
-    <>
-      <form className="flex flex-col space-y-4" onSubmit={handleSubmit}>
-        <InputSelect
-          name="tipoTransacao"
-          label="Nova transação"
-          placeholder="Selecione o tipo de transação"
-          options={tiposTransacao}
-          onValueChanged={(value) => handleChange("tipoTransacao", value)}
-        />
-        <Input name="valor" type="number" label="Valor" onValueChanged={(value) => handleChange("valor", value)} />
-        <Input name="date" type="date" label="Data" onValueChanged={(value) => handleChange("date", value)} />
+    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+      <InputSelect
+        name="tipoTransacao"
+        label="Tipo"
+        placeholder="Selecione o tipo de transação"
+        options={tiposTransacao}
+        style="dark"
+        onValueChanged={(value) => handleChange("tipoTransacao", value)}
+      />
+      <Input
+        name="valor"
+        type="number"
+        label="Valor"
+        style="dark"
+        onValueChanged={(value) => handleChange("valor", value)}
+      />
+      <Input
+        name="date"
+        type="date"
+        label="Data"
+        style="dark"
+        onValueChanged={(value) => handleChange("date", value)}
+      />
 
-        <button type="submit" className="btn bg-[#47A138] text-white rounded p-2 hover:bg-blue-600 transition">
-          Adicionar Transação
-        </button>
-      </form>
-    </>
+      <Button type="submit" text="Adicionar Transação" color="blue" />
+    </form>
   );
 }

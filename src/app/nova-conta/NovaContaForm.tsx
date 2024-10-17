@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import Input from "@/components/forms/Input";
 import InputCheckbox from "@/components/forms/InputCheckbox";
 import validaEmail from "@/shared/utils/validaEmail";
+import Button from "@/components/ui/Button";
 
 interface NovaContaDTO {
   nome: string;
@@ -127,9 +128,7 @@ export default function NovaContaForm() {
           onValueChanged={(value) => handleOnChange("termoAceito", value)}
         />
 
-        <button className="btn bg-[#FF5031] text-white pl-7 pr-7" type="submit">
-          Criar conta
-        </button>
+        <Button type="submit" color="orange" text="Criar conta" />
       </form>
 
       {showToast && (

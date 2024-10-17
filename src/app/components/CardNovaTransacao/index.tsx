@@ -11,8 +11,10 @@ export default function CardNovaTransacao() {
   const userId = Number(session?.user.id);
 
   return (
-    <div className="flex relative w-full h-[400px] mb-8 text-white bg-[#CBCBCB] rounded-[8px]">
-      <div className="z-10 p-8">
+    <div className="flex relative w-full mb-8 bg-[#CBCBCB] rounded-[8px]">
+      <div className="z-10 px-8 py-6">
+        <h2 className="text-xl font-bold pb-3">Nova transação</h2>
+
         <FormNovaTransacao
           deposito={deposito}
           transferencia={transferencia}

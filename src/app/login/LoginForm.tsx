@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 import Input from "@/components/forms/Input";
 import validaEmail from "@/shared/utils/validaEmail";
+import Button from "@/components/ui/Button";
 
 interface LoginForm {
   email?: string;
@@ -86,9 +87,7 @@ export default function LoginForm() {
           onValueChanged={(value) => handleOnChange("senha", value)}
         />
 
-        <button className="btn bg-[#47A138] text-white w-full" type="submit">
-          Acessar
-        </button>
+        <Button type="submit" color="orange" text="Acessar" />
 
         {error === "CredentialsSignin" && <div className="text-red-500">Erro no login</div>}
       </form>

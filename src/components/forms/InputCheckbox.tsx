@@ -1,6 +1,7 @@
 "use client";
 
 import { ChangeEvent } from "react";
+import InputLabel from "./InputLabel";
 
 export interface InputCheckboxOptions {
   name: string;
@@ -18,9 +19,7 @@ export default function InputCheckbox(options: InputCheckboxOptions) {
     <div className="flex flex-col">
       <div className="flex items-center gap-3">
         <input className="checkbox border-[#47A138]" name={options.name} type="checkbox" onChange={onValueChanged} />
-        <label htmlFor={options.name} className="text-sm">
-          {options.label}
-        </label>
+        <InputLabel htmlFor={options.name} text={options.label} textBold={false} />
       </div>
       {options.error && <span className="text-red-500">{options.error}</span>}
     </div>

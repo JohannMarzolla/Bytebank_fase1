@@ -7,9 +7,9 @@ import Saldo from "../Saldo";
 
 export default function Container() {
   return (
-    <div className="flex flex-col lg:flex-row justify-center max-sm:px-6 max-md:px-[3.75rem] w-full">
+    <div className="flex flex-col lg:flex-row lg:justify-center overflow-auto max-sm:px-6 max-md:px-[3.75rem] p-6 pb-0 w-full h-full">
       <Aside />
-      <div className="flex flex-col w-full lg:p-4 lg:max-w-[690px]">
+      <div className="flex flex-col w-full lg:px-4 lg:max-w-[690px] pb-6 h-max">
         <Saldo />
         <CardNovaTransacao />
       </div>

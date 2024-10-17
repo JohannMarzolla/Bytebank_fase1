@@ -6,7 +6,6 @@ import InputLabel from "./InputLabel";
 export interface InputSelectOptions {
   name: string;
   label: string;
-  placeholder?: string;
   error?: string;
   options?: InputSelectOption[];
   style?: "ligth" | "dark";
@@ -32,13 +31,9 @@ export default function InputSelect(options: InputSelectOptions) {
       <select
         className={`input w-full border-[1px] ${style === "ligth" ? "border-[#DEE9EA]" : "border-[#004D61]"}`}
         name={options.name}
+        defaultValue={"placeholder"}
         onChange={onValueChanged}
       >
-        {options.placeholder && (
-          <option value="" disabled hidden>
-            {options.placeholder}
-          </option>
-        )}
         {options.options?.length &&
           options.options.map((option) => (
             <option key={option.value} value={option.value}>

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Aside() {
   return (
-    <ul className="flex list-none gap-4 pt-8 pb-8 m-0 text-center lg:w-[180px] lg:p-8 lg:flex-col">
+    <ul className="flex list-none gap-4 lg:bg-[#F8F8F8] pt-8 pb-8 m-0 rounded-lg text-center lg:w-[180px] lg:p-8 lg:flex-col">
       <li className="flex-1 lg:flex-none pb-4 border-solid border-b-[1px] border-[#47A138] font-bold">
         <Link href="/home" className="text-[#47A138] hover:text-gray-500">
           Início

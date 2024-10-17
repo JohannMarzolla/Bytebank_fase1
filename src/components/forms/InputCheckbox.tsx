@@ -7,6 +7,7 @@ export interface InputCheckboxOptions {
   name: string;
   label: string;
   error?: string;
+  className?: string;
   onValueChanged: { (value: any): void };
 }
 
@@ -16,7 +17,7 @@ export default function InputCheckbox(options: InputCheckboxOptions) {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className={`flex flex-col ${options.className ?? ""}`}>
       <div className="flex items-center gap-3">
         <input className="checkbox border-[#47A138]" name={options.name} type="checkbox" onChange={onValueChanged} />
         <InputLabel htmlFor={options.name} text={options.label} textBold={false} />

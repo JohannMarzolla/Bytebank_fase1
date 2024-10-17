@@ -63,7 +63,6 @@ export default function FormNovaTransacao({ deposito, transferencia, novaTransac
       <InputSelect
         name="tipoTransacao"
         label="Tipo"
-        placeholder="Selecione o tipo de transação"
         options={tiposTransacao}
         style="dark"
         onValueChanged={(value) => handleChange("tipoTransacao", value)}

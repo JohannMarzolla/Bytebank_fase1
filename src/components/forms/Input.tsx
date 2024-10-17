@@ -10,6 +10,7 @@ export interface InputOptions {
   placeholder?: string;
   style?: "ligth" | "dark";
   error?: string;
+  className?: string;
   onValueChanged: { (value: any): void };
 }
 
@@ -21,7 +22,7 @@ export default function Input(options: InputOptions) {
   }
 
   return (
-    <div className="flex flex-col gap-1 w-full h-full">
+    <div className={`flex flex-col gap-1 w-full h-full ${options.className ?? ""}`}>
       <InputLabel htmlFor={options.name} text={options.label} />
       <input
         className={`input bg-white w-full border-[1px] ${style === "ligth" ? "border-[#DEE9EA]" : "border-[#004D61]"}`}

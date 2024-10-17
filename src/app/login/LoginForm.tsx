@@ -6,6 +6,7 @@ import { FormEvent, useState } from "react";
 import Input from "@/components/forms/Input";
 import validaEmail from "@/shared/utils/validaEmail";
 import Button from "@/components/ui/Button";
+import Image from "next/image";
 
 interface LoginForm {
   email?: string;
@@ -62,14 +63,14 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="max-w-[93%] overflow-hidden h-auto">
-      <form
-        className="flex justify-center items-center flex-col bg-[#F8F8F8] p-12 rounded-lg w-96 max-w-full gap-6"
-        onSubmit={login}
-      >
-        <h2 className="font-bold text-xl mb-3">Login</h2>
+    <div className="flex items-center flex-col overflow-auto bg-[#F8F8F8] w-96 max-w-[93%] h-full">
+      <Image className="py-6 z-10" src="/ilustracao-login.png" width={230} height={170} alt="Imagem do login" />
+
+      <form className="flex items-center flex-col w-full px-12 pb-12" onSubmit={login}>
+        <h2 className="font-bold text-xl pb-4">Login</h2>
 
         <Input
+          className="pb-5"
           name="email"
           type="email"
           label="Email"
@@ -79,6 +80,7 @@ export default function LoginForm() {
         />
 
         <Input
+          className="pb-6"
           name="senha"
           type="password"
           label="Senha"

@@ -18,7 +18,7 @@ export default async function RootLayout({
       </head>
       <body className="flex flex-col h-screen w-screen overflow-hidden bg-[#E4EDE3]">
         <Header />
-        <main className="flex flex-col h-full w-full overflow-scroll">{children}</main>
+        <main className="flex flex-col h-full w-full overflow-hidden">{children}</main>
       </body>
     </html>
   );

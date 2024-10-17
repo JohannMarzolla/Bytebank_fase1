@@ -11,8 +11,8 @@ export default function CardNovaTransacao() {
   const userId = Number(session?.user.id);
 
   return (
-    <div className="flex relative w-full mb-8 bg-[#CBCBCB] rounded-[8px]">
-      <div className="z-10 px-8 py-6">
+    <div className="flex relative max-sm:flex-col max-sm:h-[650px] w-full bg-[#CBCBCB] rounded-[8px]">
+      <div className="z-20 px-8 py-6">
         <h2 className="text-xl font-bold pb-3">Nova transação</h2>
 
         <FormNovaTransacao
@@ -24,7 +24,7 @@ export default function CardNovaTransacao() {
       </div>
 
       <Image
-        className="absolute right-0 bottom-0 pb-6 pr-6"
+        className="absolute right-0 bottom-0 pb-6 pr-6 z-10"
         src="/nova-transacao-home.png"
         width={327}
         height={230}

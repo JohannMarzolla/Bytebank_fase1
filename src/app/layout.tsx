@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 import { TransacoesProvider } from "./context/TransacoesContext";
 
 export const metadata: Metadata = {
-  title: "Tech challenger",
+  title: "Bytebank",
 };
 
 export default async function RootLayout({children,}: Readonly<{children: React.ReactNode;
@@ -16,7 +16,7 @@ export default async function RootLayout({children,}: Readonly<{children: React.
   const session = await getServerSession(authOptions);
 
 
-  if (!session) {
+  if (!session) {   
     redirect("/login");
     return null;
   }
@@ -30,7 +30,7 @@ export default async function RootLayout({children,}: Readonly<{children: React.
       </head>
       <SessionProvider session={session}>
       <TransacoesProvider session={session}>
-      <body className="flex flex-col overflow-hidden h-screen w-screen bg-[#E4EDE3]">
+      <body className="flex flex-col overflow-hidden h-screen w-screen bg-[#E4EDE3]">   
         <Header />
        
           <main className="flex flex-col h-full w-full overflow-scroll">{children}</main>

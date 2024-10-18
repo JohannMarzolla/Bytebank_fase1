@@ -1,6 +1,6 @@
 "use client";
 
-import { useTransacoesContext } from "../../context/TransacoesContext";
+import { useTransacoesContext } from "@/app/context/TransacoesContext";
 
 export default function Extrato() {
   const { transacoes } = useTransacoesContext();

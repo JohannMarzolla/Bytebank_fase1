@@ -2,7 +2,7 @@
 
 export interface IconOptions {
   name: string;
-  className: string;
+  className?: string;
 }
 
 export default function Icon(options: IconOptions) {

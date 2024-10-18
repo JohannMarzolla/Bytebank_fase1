@@ -13,7 +13,7 @@ export const useSessionContext = () => {
 
 // Provider do contexto
 interface SessionProviderProps {
-  session: Session;
+  session: Session | null;
   children: ReactNode;
 }
 

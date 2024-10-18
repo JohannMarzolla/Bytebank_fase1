@@ -1,7 +1,7 @@
 "use client";
 
-import { useTransacoesContext } from "../../context/TransacoesContext";
-import { useSessionContext } from "../../context/SessionContext";
+import { useTransacoesContext } from "@/app/context/TransacoesContext";
+import { useSessionContext } from "@/app/context/SessionContext";
 import { formatarData, formatarMoeda } from "@/shared/utils/Formatters";
 import { FormatoData } from "@/shared/types/FormatoData";
 import Image from "next/image";

@@ -5,18 +5,11 @@ import Aside from "../../components/Aside";
 import Extrato from "../../components/Extrato";
 
 export default async function transferencias() {
-  const session = await getServerSession();
-
-  
-  if (!session) {
-    redirect("/login");
-    return null;
-  }
-
+ 
   return (
     <div>
-      <p>Bem-vindo à página de investimentos!</p>
       <Aside />
+      <p>Bem-vindo à página de investimentos!</p>
       <Extrato />
     </div>
   );

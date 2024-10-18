@@ -1,4 +1,3 @@
-import { error } from 'console';
 import { NextRequest, NextResponse } from 'next/server';
 import TransacoesRepository from './transacoesRepository';
 
@@ -40,5 +39,30 @@ export async function POST(req: Request) {
   } catch (error) {
       console.error("Erro ao criar transação:", error);
       return NextResponse.json({ error: "Erro ao criar transação." }, { status: 500 });
+  }
+}
+
+export async function PUT(req: NextRequest) {
+  const id = parseInt(req.nextUrl.searchParams.get('id') || '0', 10);
+  const body = await req.json();
+  const { tipoTransacao, valor, date } = body;
+
+  if (isNaN(id) || id <= 0) {
+    return NextResponse.json({ error: "id não fornecido ou inválido." }, { status: 400 });
+  }
+
+  try {
+    const transacaoExistente = await transacoesRepository.getTransacoesById(id);
+
+    if (!transacaoExistente) {
+      return NextResponse.json({ error: "Transação não encontrada." }, { status: 404 });
+    }
+
+    const transacaoAtualizada = await transacoesRepository.updateTransacao(id, tipoTransacao, valor, date);
+
+    return NextResponse.json(transacaoAtualizada, { status: 200 });
+  } catch (error) {
+    console.error("Erro ao atualizar transação:", error);
+    return NextResponse.json({ error: "Erro ao atualizar transação." }, { status: 500 });
   }
 }

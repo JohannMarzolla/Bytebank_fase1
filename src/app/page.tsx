@@ -1,6 +1,6 @@
 export default async function Home() {
   return (
-<div className="md:bg-[url('/bg-blue.svg')]  bg-bottom  md:bg-cover sm:bg-contain md:min-h-screen bg-[url('/bg-blue-mobile.svg')]">
+    <div className="md:bg-[url('/bg-blue.svg')]  bg-bottom  md:bg-cover sm:bg-contain md:min-h-screen bg-[url('/bg-blue-mobile.svg')]">
       <div className="flex flex-col items-center lg:flex-row justify-between max-w-6xl mx-auto w-full mt-10">
         <h1 className="text-2xl font-bold text-black text-center lg:text-left mb-4 lg:mb-0 lg:w-1/2">
           Experimente mais liberdade no <br /> controle da sua vida financeira.{" "}
@@ -12,7 +12,6 @@ export default async function Home() {
           className="w-full lg:w-1/2 max-w-xs lg:max-w-none mx-auto"
         />
       </div>
-
       <div className="flex flex-wrap justify-between max-w-6xl mx-auto w-full mt-10">
         <div className="flex flex-col items-center w-full sm:w-1/2 lg:w-1/4 p-4">
           <img
@@ -38,11 +37,7 @@ export default async function Home() {
           </p>
         </div>
         <div className="flex flex-col items-center w-full sm:w-1/2 lg:w-1/4 p-4">
-          <img
-            src="/icon-star.svg"
-            alt="Programa de pontos"
-            className="mb-2"
-          />
+          <img src="/icon-star.svg" alt="Programa de pontos" className="mb-2" />
           <h2 className="text-lg font-bold text-[#47A138] font-inter text-[20px] flex items-center mb-1">
             Programa de pontos
           </h2>

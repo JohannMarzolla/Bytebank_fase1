@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import { TransacoesProvider } from "./context/TransacoesContext";
+import Footer from "./components/footer";
 
 export const metadata: Metadata = {
   title: "Bytebank",
@@ -32,8 +33,8 @@ export default async function RootLayout({children,}: Readonly<{children: React.
       <TransacoesProvider session={session}>
       <body className="flex flex-col overflow-hidden h-screen w-screen bg-[#E4EDE3]">   
         <Header />
-       
-          <main className="flex flex-col h-full w-full overflow-scroll">{children}</main>
+          <main className="flex flex-col h-full w-full overflow-hidden">{children}</main>
+          <Footer/>
        
       </body>
       </TransacoesProvider>

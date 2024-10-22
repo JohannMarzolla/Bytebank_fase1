@@ -12,8 +12,7 @@ export const metadata: Metadata = {
   title: "Bytebank",
 };
 
-export default async function RootLayout({children,}: Readonly<{children: React.ReactNode;
-}>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const session = await getServerSession(authOptions);
 
 
@@ -30,14 +29,15 @@ export default async function RootLayout({children,}: Readonly<{children: React.
         rel="stylesheet" />
       </head>
       <SessionProvider session={session}>
-      <TransacoesProvider session={session}>
-      <body className="flex flex-col overflow-hidden h-screen w-screen bg-[#E4EDE3]">   
-        <Header />
-          <main className="flex flex-col h-full w-full overflow-hidden">{children}</main>
-          <Footer/>
-       
-      </body>
-      </TransacoesProvider>
+        <TransacoesProvider session={session}>
+          <body className="flex flex-col overflow-hidden h-screen w-screen bg-[#E4EDE3]">
+            <Header />
+            <div className="flex flex-col h-full w-full overflow-x-hidden overflow-y-scroll">
+              <main className="flex flex-col">{children}</main>
+              <Footer />
+            </div>
+          </body>
+        </TransacoesProvider>
       </SessionProvider>
     </html>
   );

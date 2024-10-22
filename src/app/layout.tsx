@@ -10,8 +10,7 @@ export const metadata: Metadata = {
   title: "Bytebank",
 };
 
-export default async function RootLayout({children,}: Readonly<{children: React.ReactNode;
-}>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
 
   return (
     <html lang="pt-br">
@@ -20,16 +19,17 @@ export default async function RootLayout({children,}: Readonly<{children: React.
         href="https://fonts.googleapis.com/icon?family=Material+Icons" 
         rel="stylesheet" />
       </head>
-      <SessionProvider>
-      <TransacoesProvider >
-
-      <body className="flex flex-col overflow-hidden h-screen w-screen bg-[#E4EDE3]">   
-        <Header/>
-          <main className="flex flex-col h-full w-full overflow-hidden">{children}</main>
-        <Footer/>
-      </body>
-
-      </TransacoesProvider>
+      <SessionProvider >
+        <TransacoesProvider >
+          <body className="flex flex-col overflow-hidden h-screen w-screen bg-[#E4EDE3]">
+            <Header />
+            <div className="flex flex-col h-full w-full overflow-x-hidden overflow-y-scroll">
+              <main className="flex flex-col">{children}</main>
+              
+            </div>
+            <Footer />
+          </body>
+        </TransacoesProvider>
       </SessionProvider>
     </html>
   );

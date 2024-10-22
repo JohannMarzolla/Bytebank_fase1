@@ -63,7 +63,7 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="flex items-center flex-col overflow-auto bg-[#F8F8F8] w-96 max-w-[93%] h-full">
+    <div className="flex items-center flex-col bg-[#F8F8F8] w-96 max-w-[93%] h-full rounded-[8px]">
       <Image className="py-6 z-10" src="/ilustracao-login.png" width={230} height={170} alt="Imagem do login" />
 
       <form className="flex items-center flex-col w-full px-12 pb-12" onSubmit={login}>

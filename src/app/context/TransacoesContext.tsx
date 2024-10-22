@@ -1,10 +1,11 @@
 "use client";
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import { getSaldo, postSaldo, getTransacoes, postTransacao, putTransacoes } from "../services/transacoesServices";
 
+import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { getSaldo, getTransacoes, postSaldo, postTransacao, putTransacoes } from "../services/transacoesServices";
+import { useSession } from "next-auth/react";
 
 interface Transacao {
-  userId: number,
+  userId: number;
   tipoTransacao: string;
   valor: number;
   date: string;
@@ -16,59 +17,45 @@ interface TransacoesContextData {
   deposito: (number: number) => Promise<void>;
   transferencia: (number: number) => Promise<void>;
   novaTransacao: (
-  tipoTransacao: string, valor: number, date: string, userId : number) => Promise<void>;
-  atualizarTransacao : any
-  
-}
-
-interface TransacoesProviderProps {
-  children: ReactNode;
-  session: any;
+    tipoTransacao: string, valor: number, date: string, userId: number) => Promise<void>;
+  atualizarTransacao: any;
 }
 
 const TransacoesContext = createContext<TransacoesContextData | undefined>(undefined);
 
-export function TransacoesProvider({ children , session}: TransacoesProviderProps) { 
-  const user = session?.user; 
+export function TransacoesProvider({ children }: { children: ReactNode }) {
+  const { data: session } = useSession();
+  console.log('session context ',session);
+  const user = session?.user as any || {};
   const [transacoes, setTransacoes] = useState<Transacao[]>([]);
   const [saldo, setSaldo] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(true); 
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (!user?.id) 
-        return; 
+    if (session?.user?.id) {
+      const fetchData = async () => {
+        try {
+          const [saldoResult, transacoesResult] = await Promise.allSettled([
+            getSaldo(session.user.id),
+            getTransacoes(session.user.id),
+          ]);
 
-      try {
-        const [saldoResult, transacoesResult] = await Promise.allSettled([
-          getSaldo(user.id), 
-          getTransacoes(user.id),
-        ]);
-
-        if (saldoResult.status === "fulfilled") {
-          setSaldo(saldoResult.value);
-        } else {
-          console.error("Erro ao buscar saldo:", saldoResult.reason);
+          if (saldoResult.status === "fulfilled") setSaldo(saldoResult.value);
+          if (transacoesResult.status === "fulfilled") setTransacoes(transacoesResult.value);
+        } catch (error) {
+          console.error("Erro ao buscar dados no servidor:", error);
+        } finally {
+          setLoading(false);
         }
+      };
 
-        if (transacoesResult.status === "fulfilled") {
-          setTransacoes(transacoesResult.value);
-        } else {
-          console.error("Erro ao buscar transações:", transacoesResult.reason);
-        }
-      } catch (error) {
-        console.error("Erro ao buscar dados no servidor:", error);
-      } finally {
-        setLoading(false); 
-      }
-    };
-
-    fetchData();
-  }, [user?.id]); 
+      fetchData();
+    }
+  }, [session]);
 
   const atualizarSaldo = async () => {
     try {
-      if (!user?.id) return; 
+      if (!user?.id) return;
       const saldoAtualizado = await getSaldo(user.id);
       setSaldo(saldoAtualizado);
     } catch (error) {
@@ -76,34 +63,32 @@ export function TransacoesProvider({ children , session}: TransacoesProviderProp
     }
   };
 
-  const atualizaTransacoes = async () =>{
+  const atualizaTransacoes = async () => {
     try {
       if (!user?.id) return;
-      const transacoesAtualizadas = await getTransacoes(user.id)
-      setTransacoes(transacoesAtualizadas )
-      
+      const transacoesAtualizadas = await getTransacoes(user.id);
+      setTransacoes(transacoesAtualizadas);
     } catch (error) {
-      console.log('Erro ao atualizar as transacoes',error)
+      console.log("Erro ao atualizar as transações", error);
     }
+  };
 
-  }
- 
   const deposito = async (valor: number) => {
-
     try {
       if (!user?.id) throw new Error("Usuário não autenticado.");
       const novoSaldo = saldo + valor;
-      await postSaldo(user.id, novoSaldo); 
+      await postSaldo(user.id, novoSaldo);
       await atualizarSaldo();
     } catch (error) {
       console.error("Erro ao realizar depósito:", error);
     }
   };
+
   const transferencia = async (valor: number) => {
     try {
       if (!user?.id) throw new Error("Usuário não autenticado.");
       const novoSaldo = saldo - valor;
-      await postSaldo(Number(user.id), Number(novoSaldo)); 
+      await postSaldo(user.id, novoSaldo);
       await atualizarSaldo();
     } catch (error) {
       console.error("Erro ao realizar transferência:", error);
@@ -111,38 +96,27 @@ export function TransacoesProvider({ children , session}: TransacoesProviderProp
   };
 
   const novaTransacao = async (tipoTransacao: string, valor: number, date: string, userId: number) => {
-    const transacao: Transacao = {
-      userId,
-      tipoTransacao,
-      valor,
-      date,
-    };
+    const transacao: Transacao = { userId, tipoTransacao, valor, date };
     await postTransacao(transacao);
     await atualizaTransacoes();
     setTransacoes((prevTransacoes) => [...prevTransacoes, transacao]);
   };
-  
+
   const atualizarTransacao = async (transacaoId: number, tipoTransacao: string, valor: number, date: string) => {
     try {
-      console.log('iniciando atualizar transacoes')
-      if (!user?.id) throw new Error("Usuário não autenticado context.");
-  
-      const transacaoAtualizada: any = {
-        transacaoId,
-        tipoTransacao,
-        valor,
-        date,
-      };
-      await putTransacoes(transacaoAtualizada); 
+      if (!user?.id) throw new Error("Usuário não autenticado.");
+      const transacaoAtualizada = { transacaoId, tipoTransacao, valor, date };
+      await putTransacoes(transacaoAtualizada);
       await atualizaTransacoes();
-  
-      console.log("Transação atualizada com sucesso!");
     } catch (error) {
       console.error("Erro ao atualizar a transação:", error);
     }
   };
+
   return (
-    <TransacoesContext.Provider value={{ transacoes, saldo, deposito, transferencia, novaTransacao,  atualizarTransacao }}>
+    <TransacoesContext.Provider
+      value={{ transacoes, saldo, deposito, transferencia, novaTransacao, atualizarTransacao }}
+    >
       {children}
     </TransacoesContext.Provider>
   );
@@ -155,3 +129,4 @@ export function useTransacoesContext() {
   }
   return context;
 }
+

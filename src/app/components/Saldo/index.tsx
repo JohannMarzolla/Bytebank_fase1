@@ -6,9 +6,11 @@ import { formatarData, formatarMoeda } from "@/shared/utils/Formatters";
 import { FormatoData } from "@/shared/types/FormatoData";
 import Image from "next/image";
 import Icon from "@/components/ui/Icon";
+import { useSession } from "next-auth/react";
 
 export default function Saldo() {
-  const session = useSessionContext();
+  const { data: session } = useSession();
+  console.log('saldo session', session)
   const { saldo } = useTransacoesContext();
   const date: string = formatarData(new Date(), FormatoData.DIA_SEMANA_DIA_MES_ANO);
   const saldoFormato = formatarMoeda(saldo || 0);

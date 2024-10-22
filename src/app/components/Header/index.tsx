@@ -2,9 +2,11 @@
 
 import HeaderLogado from "./HeaderLogado";
 import HeaderInicial from "./HeaderInicial";
-import { useSessionContext } from "@/app/context/SessionContext";
+import { useSession } from "next-auth/react";
 
-export default function Header() {
-  const session = useSessionContext();
-  return <>{!session ? <HeaderInicial /> : <HeaderLogado />}</>;
+export default  function Header() {
+  const { data: session } = useSession();
+  console.log('session header',session )
+
+  return <>{!session ? <HeaderInicial /> : <HeaderLogado session={session} />}</>;
 }

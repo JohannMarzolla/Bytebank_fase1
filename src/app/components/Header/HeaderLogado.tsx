@@ -5,8 +5,8 @@ import Button from "@/components/ui/Button";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 
-export default function HeaderLogado() {
-  const session = useSessionContext();
+export default function HeaderLogado({session} : any) {
+
 
   return (
     <header className="flex justify-between items-center w-full bg-[#004D61] text-white h-24 px-20">

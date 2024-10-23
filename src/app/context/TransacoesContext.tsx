@@ -105,7 +105,7 @@ export function TransacoesProvider({ children }: { children: ReactNode }) {
     };
     await postTransacao(transacao);
     await atualizaTransacoes();
-    setTransacoes((prevTransacoes) => [...prevTransacoes, transacao]);
+    
   };
 
   const atualizarTransacao = async (transacaoId: number, tipoTransacao: string, valor: number, date: string) => {

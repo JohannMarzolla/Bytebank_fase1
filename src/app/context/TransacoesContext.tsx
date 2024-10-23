@@ -5,21 +5,12 @@ import { getSaldo, getTransacoes, postSaldo, postTransacao, putTransacoes } from
 import { useSession } from "next-auth/react";
 
 interface Transacao {
+  id?: number,
   userId: number;
   tipoTransacao: string;
   valor: number;
   date: string;
 }
-
-interface TransacaoExtrato {
-  id: number;
-  tipoTransacao: string;
-  valor: number;
-  date: string;
-}
-
-
-
 
 interface TransacoesContextData {
   transacoes: Transacao[];

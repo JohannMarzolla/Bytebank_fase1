@@ -6,6 +6,7 @@ import InputLabel from "./InputLabel";
 export interface InputSelectOptions {
   name: string;
   label: string;
+  value: string | number;
   error?: string;
   options?: InputSelectOption[];
   style?: "ligth" | "dark";

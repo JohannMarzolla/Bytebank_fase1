@@ -7,6 +7,7 @@ export interface InputOptions {
   name: string;
   label: string;
   type: string;
+  value: string | number;
   placeholder?: string;
   style?: "ligth" | "dark";
   error?: string;
@@ -28,6 +29,7 @@ export default function Input(options: InputOptions) {
         className={`input bg-white w-full border-[1px] ${style === "ligth" ? "border-[#DEE9EA]" : "border-[#004D61]"}`}
         name={options.name}
         type={options.type}
+        value={options.value}
         placeholder={options.placeholder}
         onChange={onValueChanged}
       />

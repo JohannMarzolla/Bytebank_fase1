@@ -17,16 +17,17 @@ interface TransacoesContextData {
   deposito: (number: number) => Promise<void>;
   transferencia: (number: number) => Promise<void>;
   novaTransacao: (
-    tipoTransacao: string, valor: number, date: string, userId: number) => Promise<void>;
+  tipoTransacao: string, valor: number, date: string, userId: number) => Promise<void>;
   atualizarTransacao: any;
+  user: any;
 }
 
 const TransacoesContext = createContext<TransacoesContextData | undefined>(undefined);
 
 export function TransacoesProvider({ children }: { children: ReactNode }) {
   const { data: session } = useSession();
-  console.log('session context ',session);
   const user = session?.user as any || {};
+  console.log("user em transacoes context",user.id)
   const [transacoes, setTransacoes] = useState<Transacao[]>([]);
   const [saldo, setSaldo] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
@@ -96,7 +97,12 @@ export function TransacoesProvider({ children }: { children: ReactNode }) {
   };
 
   const novaTransacao = async (tipoTransacao: string, valor: number, date: string, userId: number) => {
-    const transacao: Transacao = { userId, tipoTransacao, valor, date };
+    const transacao: Transacao = 
+    { userId, 
+      tipoTransacao, 
+      valor, 
+      date 
+    };
     await postTransacao(transacao);
     await atualizaTransacoes();
     setTransacoes((prevTransacoes) => [...prevTransacoes, transacao]);
@@ -115,7 +121,7 @@ export function TransacoesProvider({ children }: { children: ReactNode }) {
 
   return (
     <TransacoesContext.Provider
-      value={{ transacoes, saldo, deposito, transferencia, novaTransacao, atualizarTransacao }}
+      value={{ transacoes, saldo, deposito, transferencia, novaTransacao, atualizarTransacao , user }}
     >
       {children}
     </TransacoesContext.Provider>

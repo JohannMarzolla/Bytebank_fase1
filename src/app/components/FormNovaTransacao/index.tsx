@@ -1,3 +1,4 @@
+'use client'
 import { useState } from "react";
 import { TipoTransacao } from "../../../shared/types/TipoTransacao";
 import InputSelect, { InputSelectOption } from "@/components/forms/InputSelect";
@@ -19,28 +20,37 @@ export default function FormNovaTransacao({ deposito, transferencia, novaTransac
   });
 
   const tiposTransacao: InputSelectOption[] = [
+    { value: "", label: "Selecione o Tipo" },
     { value: "transferencia", label: "Transferência" },
     { value: "deposito", label: "Depósito" },
+  
   ];
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!isFormValid()) {
-      alert("Dados inválidos!");
+      alert("Dados inválidos! is valid form nova transação");
       return;
     }
 
     processarTransacao();
-    setFormData({ tipoTransacao: "", valor: 0, date: "" });
+    resetForm();
   };
 
   const handleChange = (name: string, value: any) => {
-    setFormData({ ...formData, [name]: value });
+    setFormData((prevData) => ({ 
+      ...prevData, 
+      [name]: value 
+    }));
   };
 
   const processarTransacao = () => {
     const { tipoTransacao, valor, date } = formData;
+    
+    console.log(" processar transacao Tipo de Transação:", tipoTransacao);
+    console.log(" processar transacao valid Valor:", valor);
+    console.log("processar transacao valid Data:", date);
 
     novaTransacao(tipoTransacao, valor, date, userId);
 
@@ -52,12 +62,37 @@ export default function FormNovaTransacao({ deposito, transferencia, novaTransac
       throw new Error("Tipo de Transação é inválido!");
     }
   };
-
+  const resetForm = () => {
+    setFormData({
+      tipoTransacao: "",
+      valor: 0,
+      date: "",
+    });
+  };
   const isFormValid = () => {
-    if (!formData.tipoTransacao || formData.valor <= 0 || !formData.date) return false;
+    const { tipoTransacao, valor, date } = formData;
+  
+    console.log(" is valid Tipo de Transação:", tipoTransacao);
+    console.log(" is valid Valor:", valor);
+    console.log("is valid Data:", date);
+  
+    if (!tipoTransacao || tipoTransacao.trim() === "") {
+      console.log("Falha na validação: Tipo de transação inválido.");
+      return false;
+    }
+    if (valor <= 0 || isNaN(valor)) {
+      console.log("Falha na validação: Valor inválido.");
+      return false;
+    }
+    if (!date || isNaN(new Date(date).getTime())) {
+      console.log("Falha na validação: Data inválida.");
+      return false;
+    }
+  
+    console.log("Formulário é válido.");
     return true;
   };
-
+  
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
       <InputSelect
@@ -65,6 +100,7 @@ export default function FormNovaTransacao({ deposito, transferencia, novaTransac
         label="Tipo"
         options={tiposTransacao}
         style="dark"
+        value={formData.tipoTransacao}
         onValueChanged={(value) => handleChange("tipoTransacao", value)}
       />
       <Input
@@ -72,6 +108,7 @@ export default function FormNovaTransacao({ deposito, transferencia, novaTransac
         type="number"
         label="Valor"
         style="dark"
+        value={formData.valor} 
         onValueChanged={(value) => handleChange("valor", value)}
       />
       <Input
@@ -79,6 +116,7 @@ export default function FormNovaTransacao({ deposito, transferencia, novaTransac
         type="date"
         label="Data"
         style="dark"
+        value={formData.date}
         onValueChanged={(value) => handleChange("date", value)}
       />
 

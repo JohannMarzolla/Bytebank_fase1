@@ -6,6 +6,7 @@ import InputLabel from "./InputLabel";
 export interface InputCheckboxOptions {
   name: string;
   label: string;
+  value: string | number;
   error?: string;
   className?: string;
   onValueChanged: { (value: any): void };

@@ -32,7 +32,7 @@ export default function InputSelect(options: InputSelectOptions) {
       <select
         className={`input w-full border-[1px] ${style === "ligth" ? "border-[#DEE9EA]" : "border-[#004D61]"}`}
         name={options.name}
-        defaultValue={"placeholder"}
+        value={options.value} 
         onChange={onValueChanged}
       >
         {options.options?.length &&

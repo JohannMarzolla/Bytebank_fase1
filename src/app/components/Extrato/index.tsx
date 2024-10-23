@@ -6,6 +6,7 @@ import Link from "next/link";
 export default function Extrato() {
   const { transacoes } = useTransacoesContext();
 
+
   const transacoesExibidas = transacoes.slice(-5).reverse();
 
   return (
@@ -15,10 +16,7 @@ export default function Extrato() {
       <ul className="space-y-4">
         {transacoesExibidas.length > 0 ? (
           transacoesExibidas.map((tran) => (
-            <div
-              key={tran.id}
-              className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
-            >
+            <li key={tran.id} className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
               <h3 className="text-lg font-semibold text-gray-800">
                 {tran.tipoTransacao}
               </h3>
@@ -31,7 +29,7 @@ export default function Extrato() {
                   Editar
                 </button>
               </Link>
-            </div>
+            </li>
           ))
         ) : (
           <li className="text-gray-500 text-center">Nenhuma transação encontrada</li>

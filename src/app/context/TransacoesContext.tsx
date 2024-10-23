@@ -11,6 +11,16 @@ interface Transacao {
   date: string;
 }
 
+interface TransacaoExtrato {
+  id: number;
+  tipoTransacao: string;
+  valor: number;
+  date: string;
+}
+
+
+
+
 interface TransacoesContextData {
   transacoes: Transacao[];
   saldo: number;
@@ -27,7 +37,6 @@ const TransacoesContext = createContext<TransacoesContextData | undefined>(undef
 export function TransacoesProvider({ children }: { children: ReactNode }) {
   const { data: session } = useSession();
   const user = session?.user as any || {};
-  console.log("user em transacoes context",user.id)
   const [transacoes, setTransacoes] = useState<Transacao[]>([]);
   const [saldo, setSaldo] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
@@ -111,9 +120,11 @@ export function TransacoesProvider({ children }: { children: ReactNode }) {
   const atualizarTransacao = async (transacaoId: number, tipoTransacao: string, valor: number, date: string) => {
     try {
       if (!user?.id) throw new Error("Usuário não autenticado.");
+
       const transacaoAtualizada = { transacaoId, tipoTransacao, valor, date };
       await putTransacoes(transacaoAtualizada);
       await atualizaTransacoes();
+      
     } catch (error) {
       console.error("Erro ao atualizar a transação:", error);
     }

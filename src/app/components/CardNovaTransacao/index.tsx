@@ -8,8 +8,6 @@ import Image from "next/image";
 export default function CardNovaTransacao() {
   const { deposito, transferencia, novaTransacao , user } = useTransacoesContext();
   const userId = Number(user.id);
-  console.log("user id em card nova transacao ",userId)
-
   return (
     <div className="flex relative max-sm:flex-col max-sm:h-[650px] w-full bg-[#CBCBCB] rounded-[8px]">
       <div className="z-20 px-8 py-6">

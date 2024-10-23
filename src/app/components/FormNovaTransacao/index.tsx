@@ -47,10 +47,6 @@ export default function FormNovaTransacao({ deposito, transferencia, novaTransac
 
   const processarTransacao = () => {
     const { tipoTransacao, valor, date } = formData;
-    
-    console.log(" processar transacao Tipo de Transação:", tipoTransacao);
-    console.log(" processar transacao valid Valor:", valor);
-    console.log("processar transacao valid Data:", date);
 
     novaTransacao(tipoTransacao, valor, date, userId);
 
@@ -71,11 +67,7 @@ export default function FormNovaTransacao({ deposito, transferencia, novaTransac
   };
   const isFormValid = () => {
     const { tipoTransacao, valor, date } = formData;
-  
-    console.log(" is valid Tipo de Transação:", tipoTransacao);
-    console.log(" is valid Valor:", valor);
-    console.log("is valid Data:", date);
-  
+
     if (!tipoTransacao || tipoTransacao.trim() === "") {
       console.log("Falha na validação: Tipo de transação inválido.");
       return false;

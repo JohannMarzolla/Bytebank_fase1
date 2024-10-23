@@ -2,7 +2,7 @@
 import FormEditarTransacao from "@/app/components/FormEditarTransacao";
 import { redirect, useParams } from "next/navigation";
 
-export default async function editarTransacoes() {
+export default function editarTransacoes() {
   
     const {id} = useParams();
     const transacaId = Number(id)

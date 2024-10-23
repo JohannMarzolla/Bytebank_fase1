@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Icon from "@/components/ui/Icon";
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function HeaderInicial() {
   const router = useRouter();
@@ -39,12 +40,12 @@ export default function HeaderInicial() {
           </div>
 
           <div className="hidden sm:flex font-semibold gap-10 sm:gap-6">
-            <a href="#" className="hover:text-white" onClick={() => navigate("/sobre")}>
+            <Link href="/sobre" className="hover:text-white" onClick={toggleMenu}>
               Sobre
-            </a>
-            <a href="#" className="hover:text-white" onClick={() => navigate("/servicos")}>
+            </Link>
+            <Link href="/servicos" className="hover:text-white" onClick={toggleMenu}>
               Serviços
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -60,13 +61,16 @@ export default function HeaderInicial() {
             <Icon className="!text-xl" name="close" />
           </button>
 
-          <div className="flex flex-col pt-6 font-semibold">
-            <a href="#" className="block px-5 py-1 hover:text-white" onClick={() => navigate("/sobre")}>
+          <div className="flex flex-col items-center pt-6 font-semibold">
+            <Link href="/" className="block px-5 py-1 hover:text-white" onClick={toggleMenu}>
+              Home
+            </Link>
+            <Link href="/sobre" className="block px-5 py-1 hover:text-white" onClick={toggleMenu}>
               Sobre
-            </a>
-            <a href="#" className="block px-5 py-1 hover:text-white" onClick={() => navigate("/servicos")}>
+            </Link>
+            <Link href="/servicos" className="block px-5 py-1 hover:text-white" onClick={toggleMenu}>
               Serviços
-            </a>
+            </Link>
           </div>
 
           <div className="flex flex-col px-4 py-5 gap-4">

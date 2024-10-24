@@ -62,9 +62,6 @@ export default function HeaderInicial() {
           </button>
 
           <div className="flex flex-col items-center pt-6 font-semibold">
-            <Link href="/" className="block px-5 py-1 hover:text-white" onClick={toggleMenu}>
-              Home
-            </Link>
             <Link href="/sobre" className="block px-5 py-1 hover:text-white" onClick={toggleMenu}>
               Sobre
             </Link>

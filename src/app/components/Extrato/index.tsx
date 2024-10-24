@@ -8,29 +8,62 @@ export default function Extrato() {
   const transacoesExibidas = transacoes.slice(-5).reverse();
 
   return (
-    <div className="w-full max-w-sm h-auto p-6 bg-gray-100 rounded-lg shadow-md">
-      <h2 className="text-center text-xl font-bold text-gray-700 mb-4">Extrato</h2>
+    <div className="bg-gray-100 w-[282px] h-[900px] rounded-lg p-8">
+      <div className="flex items-center justify-between">
+        <h2 className="text-black font-bold text-[25px] text-left">
+          Extrato
+        </h2>
+        <div className="flex gap-4">
+          <Link href="/transferencias">
+            <img 
+              src="Editar.png" 
+              alt="icone de editar" 
+              className="w-10 h-10"
+            />
+          </Link>
+          <Link href="/transferencias">
+            <img 
+              src="/Deletar.png" 
+              alt="icone de deletar" 
+              className="w-10 h-10"
+            />
+          </Link>
+        </div>
+      </div>
 
-      <ul className="space-y-4">
-      {transacoesExibidas.length > 0 ? (
-      transacoesExibidas.map((tran, index) => (
-        <li key={tran.id || index} className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-          <h3 className="text-lg font-semibold text-gray-800">
-            {tran.tipoTransacao}
-          </h3>
-          <p className="text-gray-600">
-            R${tran.valor} - {new Date(tran.date).toLocaleDateString()}
-          </p>
+      <ul className="flex flex-col gap-5 pl-0 text-left mt-4">
+        {transacoesExibidas.length > 0 ? (
+          transacoesExibidas.map((tran, index) => (
+            <li key={tran.id || index} className="list-none">
+              <p className="text-green-600 font-semibold text-[13px]">
+                novembro
+              </p>
+              <div className="flex items-center justify-between">
+                <h3 className="text-black text-[16px] font-normal">
+                  {tran.tipoTransacao}
+                </h3>
+                <p className="text-gray-500 text-[13px] font-normal">
+                  {new Date(tran.date).toLocaleDateString()}
+                </p>
+              </div>
 
-      <Link href={`/editarTransacao/${tran.id}`}>
-        <button className="mt-2 px-3 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-300">
-          Editar
-        </button>
-      </Link>
-    </li>
-  ))
+              <div className="border-b border-green-500/50 w-[75%] mt-2">
+                <p className="text-black font-semibold text-[16px]">
+                  R$ {tran.valor}
+                </p>
+              </div>
+
+              <Link href={`/editarTransacao/${tran.id}`}>
+                <button className="mt-2 px-3 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-300">
+                  Editar
+                </button>
+              </Link>
+            </li>
+          ))
         ) : (
-          <li className="text-gray-500 text-center">Nenhuma transação encontrada</li>
+          <li className="text-gray-500 text-center">
+            Nenhuma transação encontrada
+          </li>
         )}
       </ul>
     </div>

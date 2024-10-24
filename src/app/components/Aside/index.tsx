@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export interface AsideOptions {
   removeOnMobile?: boolean;
@@ -8,6 +9,18 @@ export interface AsideOptions {
 }
 
 export default function Aside(options: AsideOptions) {
+
+  const pathName = usePathname();
+
+  function linkActive(link : string ){
+     return pathName === link ?"text-[#47A138] hover:text-gray-500" : "text-black hover:text-gray-500";
+  }
+  function liActive(link : string ){
+    return pathName === link ?
+    "flex-1 lg:flex-none pb-4 border-solid border-b-[1px] border-[#47A138] font-bold":
+     "flex-1 lg:flex-none md:pb-4 lg:border-solid lg:border-b-[1px] border-black ";
+ }
+
   function onLinkClicked() {
     if (options?.onRouteClicked) options.onRouteClicked();
   }
@@ -18,23 +31,35 @@ export default function Aside(options: AsideOptions) {
         options?.removeOnMobile ? "max-sm:hidden" : ""
       } flex max-sm:flex-col lg:flex-col list-none gap-4 lg:bg-[#F8F8F8]  m-0 rounded-lg text-center lg:w-[180px] lg:p-8`}
     >
-      <li className="flex-1 lg:flex-none pb-4 border-solid border-b-[1px] border-[#47A138] font-bold">
-        <Link href="/home" className="text-[#47A138] hover:text-gray-500" onClick={() => onLinkClicked()}>
-          Início
+      <li className={`${liActive('/home')}`}>
+        <Link 
+          href="/home" 
+          className={`${linkActive("/home")}`} 
+          onClick={() => onLinkClicked()}>
+            Início
         </Link>
       </li>
-      <li className="flex-1 lg:flex-none md:pb-4 lg:border-solid lg:border-b-[1px] border-black ">
-        <Link href="/transferencias" className="text-black hover:text-gray-500" onClick={() => onLinkClicked()}>
+      <li className={`${liActive('/transferencias')}`}>
+        <Link 
+          href="/transferencias" 
+          className={`${linkActive("/transferencias")}`}
+          onClick={() => onLinkClicked()}>
           Transferências
         </Link>
       </li>
-      <li className="flex-1 lg:flex-none md:pb-4 lg:border-solid lg:border-b-[1px] border-black ">
-        <Link href="/investimentos" className="text-black hover:text-gray-500" onClick={() => onLinkClicked()}>
+      <li className={`${liActive('/investimentos')}`}>
+        <Link 
+          href="/investimentos" 
+          className={`${linkActive("/investimentos")}`}
+          onClick={() => onLinkClicked()}>
           Investimentos
         </Link>
       </li>
-      <li className="flex-1 lg:flex-none md:pb-4">
-        <Link href="/outrosServicos" className="text-black hover:text-gray-500" onClick={() => onLinkClicked()}>
+      <li className={`${liActive('/outrosServiços')}`}>
+        <Link 
+        href="/outrosServicos" 
+        className={`${linkActive("/outrosServicos")}`} 
+        onClick={() => onLinkClicked()}>
           Outros Serviços
         </Link>
       </li>

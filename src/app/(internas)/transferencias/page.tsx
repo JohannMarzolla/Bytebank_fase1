@@ -1,7 +1,7 @@
 import Aside from "../../components/Aside";
 import Saldo from "../../components/Saldo";
 
-export default async function transferencias() {
+export default function transferencias() {
   return (
     <div>
       <Aside removeOnMobile={true} />

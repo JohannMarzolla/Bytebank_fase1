@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import Aside from "../../components/Aside";
 import Extrato from "../../components/Extrato";
 
-export default async function transferencias() {
+export default  function investimentos() {
  
   return (
     <div>

@@ -7,7 +7,11 @@ import Icon from "@/components/ui/Icon";
 import { useState } from "react";
 import Aside from "../Aside";
 
-export default function HeaderLogado({ session }: any) {
+export interface HeaderLogadoOptions {
+  userName: string;
+}
+
+export default function HeaderLogado(options: HeaderLogadoOptions) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -31,7 +35,7 @@ export default function HeaderLogado({ session }: any) {
         ></Button>
 
         <div className="flex items-center">
-          <span className="pr-4 max-sm:hidden">{session?.user.name}</span>
+          <span className="pr-4 max-sm:hidden">{options.userName}</span>
           <Image className="" src="/avatar-header.png" width={40} height={40} alt="Imagem da conta" />
         </div>
       </div>

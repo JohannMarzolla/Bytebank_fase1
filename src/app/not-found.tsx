@@ -11,8 +11,6 @@ export default function NotFound() {
 
   function toHome() {
     const path = !session ? "/" : "/home";
-    console.log(path);
-
     router.push(path);
   }
 

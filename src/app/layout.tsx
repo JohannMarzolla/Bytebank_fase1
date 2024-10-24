@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { TransacoesProvider } from "./context/TransacoesContext";
 import { SessionProvider } from "./context/SessionProvider";
-import Body from "./components/Body";
+import LayoutInicial from "./components/LayoutInicial";
 
 export const metadata: Metadata = {
   title: "Bytebank",
@@ -16,7 +16,9 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       </head>
       <SessionProvider>
         <TransacoesProvider>
-          <Body>{children}</Body>
+          <body>
+            <LayoutInicial>{children}</LayoutInicial>
+          </body>
         </TransacoesProvider>
       </SessionProvider>
     </html>

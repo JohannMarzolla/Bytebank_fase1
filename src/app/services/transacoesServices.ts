@@ -95,4 +95,20 @@ export const putTransacoes = async (transacaoAtualizada : any) => {
   return await response.json();
 };
 
- 
+
+export const DeleteTransacao = async (transacaoId: number) => {
+  const response = await fetch(`/api/transacoes?id=${transacaoId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ id: transacaoId }), 
+  });
+
+  if (!response.ok) {
+    throw new Error('Erro ao atualizar saldo');
+  }
+
+  const data = await response.json();
+  return data;
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import { getSaldo, getTransacoes, postSaldo, postTransacao, putTransacoes } from "../services/transacoesServices";
+import { DeleteTransacao, getSaldo, getTransacoes, postSaldo, postTransacao, putTransacoes } from "../services/transacoesServices";
 import { useSession } from "next-auth/react";
 
 interface Transacao {
@@ -20,6 +20,7 @@ interface TransacoesContextData {
   novaTransacao: (
   tipoTransacao: string, valor: number, date: string, userId: number) => Promise<void>;
   atualizarTransacao: any;
+  deletarTransacao: any;
   user: any;
 }
 
@@ -121,9 +122,23 @@ export function TransacoesProvider({ children }: { children: ReactNode }) {
     }
   };
 
+
+  const deletarTransacao = async(transacaoId : number) => {
+    try {
+      if (!transacaoId) throw new Error("Usuário não autenticado.");
+
+      await DeleteTransacao(transacaoId);
+      await atualizaTransacoes();
+      
+    } catch (error) {
+      console.error("Erro ao deletar a transação context:", error);
+      
+    }
+  }
+
   return (
     <TransacoesContext.Provider
-      value={{ transacoes, saldo, deposito, transferencia, novaTransacao, atualizarTransacao , user }}
+      value={{ transacoes, saldo, deposito, transferencia, novaTransacao, atualizarTransacao ,deletarTransacao, user }}
     >
       {children}
     </TransacoesContext.Provider>

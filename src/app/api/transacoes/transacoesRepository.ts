@@ -37,4 +37,13 @@ async createTransacao(userId: number, tipoTransacao: string, valor: number, date
     });
 }
 
+async DeletarTransacao(transacaoId : number){
+    return this.db.transacao.delete({
+        where:{
+            id : transacaoId
+        }
+    })
+
+}
+
 }

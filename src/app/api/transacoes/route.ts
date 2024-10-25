@@ -66,3 +66,26 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json({ error: "Erro ao atualizar transação." }, { status: 500 });
   }
 }
+
+
+export async function DELETE(req: NextRequest) {
+  const id = parseInt(req.nextUrl.searchParams.get('id') || '0', 10);
+
+  if (isNaN(id) || id <= 0) {
+    return NextResponse.json({ error: "ID não fornecido ou inválido." }, { status: 400 });
+  }
+
+  try {
+    const transacaoDeletada = await transacoesRepository.DeletarTransacao(id);
+
+    if (!transacaoDeletada) {
+      return NextResponse.json({ error: "Transação não encontrada." }, { status: 404 });
+    }
+
+    return NextResponse.json({ message: "Transação deletada com sucesso." }, { status: 200 });
+
+  } catch (error) {
+    console.error("Erro ao deletar transação:", error);
+    return NextResponse.json({ error: "Erro ao deletar transação." }, { status: 500 });
+  }
+}

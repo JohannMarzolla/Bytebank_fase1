@@ -7,18 +7,14 @@ export default function editarTransacoes() {
     const {id} = useParams();
     const transacaId = Number(id)
     
-  return (
 
+
+    return (
+      <div className="flex justify-center items-center w-full h-[100vh] bg-gray-100">
+        <div className="relative w-full max-w-lg p-6 bg-[#CBCBCB] rounded-[8px] shadow-lg">
+          <FormEditarTransacao transacaoId={transacaId} />
+        </div>
+      </div>
+    );
+  }
     
-    <div className="flex relative w-full h-[400px] mb-8 text-white bg-[#CBCBCB] rounded-[8px]">
-        
-        <div className="z-10 p-8">
-       
-       <FormEditarTransacao  transacaoId={transacaId}/>
-       </div>
-
-        
-    </div>
-
-    )
-}

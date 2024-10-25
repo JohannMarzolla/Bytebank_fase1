@@ -52,12 +52,7 @@ export default function Extrato() {
                   R$ {tran.valor}
                 </p>
               </div>
-
-              <Link href={`/editarTransacao/${tran.id}`}>
-                <button className="mt-2 px-3 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-300">
-                  Editar
-                </button>
-              </Link>
+              
             </li>
           ))
         ) : (

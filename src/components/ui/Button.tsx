@@ -17,7 +17,7 @@ export default function Button(options: ButtonOptions) {
       case "blue":
         return "text-white bg-[#004D61] border-[#004D61]";
       case "black":
-        return "text-white bg-[#000] border-[#000]";
+        return "text-white bg-[#000]";
       case "transparent":
         return "text-black bg-transparent border-[#000]";
       default:

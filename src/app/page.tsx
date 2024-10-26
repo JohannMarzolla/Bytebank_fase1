@@ -30,7 +30,7 @@ export default async function Home() {
         />
         </Link>
       </div>
-      <div className="flex flex-wrap justify-between max-w-6xl mx-auto w-full mt-10">
+      <div className="flex flex-wrap justify-between max-w-6xl mx-auto w-full mt-10 mb-10">
         <div className="flex flex-col items-center w-full sm:w-1/2 lg:w-1/4 p-4">
           <img
             src="/icon-gift.svg"

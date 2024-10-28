@@ -32,7 +32,7 @@ export function TransacoesProvider({ children }: { children: ReactNode }) {
   const [transacoes, setTransacoes] = useState<Transacao[]>([]);
   const [saldo, setSaldo] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
-
+ 
   useEffect(() => {
     if (session?.user?.id) {
       const fetchData = async () => {
@@ -116,7 +116,6 @@ export function TransacoesProvider({ children }: { children: ReactNode }) {
       const transacaoAtualizada = { transacaoId, tipoTransacao, valor, date };
       await putTransacoes(transacaoAtualizada);
       await atualizaTransacoes();
-      
     } catch (error) {
       console.error("Erro ao atualizar a transação:", error);
     }
@@ -126,7 +125,6 @@ export function TransacoesProvider({ children }: { children: ReactNode }) {
   const deletarTransacao = async(transacaoId : number) => {
     try {
       if (!transacaoId) throw new Error("Usuário não autenticado.");
-
       await DeleteTransacao(transacaoId);
       await atualizaTransacoes();
       

@@ -45,10 +45,6 @@ export const getTransacoes = async (userId : number ) => {
 export const postTransacao = async (transacao: Transacao) => {
  
   const { date, tipoTransacao, valor, userId } = transacao;
-  console.log("post Transacao date ", date , typeof date)
-  console.log("post Transacao tipo transaçao  ", tipoTransacao , typeof tipoTransacao)
-  console.log("post Transacao valor ", valor, typeof valor)
-  console.log("post Transacao userId ", userId , typeof userId)
   const dataObjeto = new Date(date);  
   const valorNumerico = Number(valor);  
   

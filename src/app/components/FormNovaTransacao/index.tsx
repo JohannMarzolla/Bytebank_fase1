@@ -101,7 +101,7 @@ export default function FormNovaTransacao({ deposito, transferencia, novaTransac
         label="Valor"
         style="dark"
         value={formData.valor} 
-        onValueChanged={(value) => handleChange("valor", value)}
+        onValueChanged={(value) => handleChange("valor", Number(value))}
       />
       <Input
         name="date"

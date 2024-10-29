@@ -1,21 +1,37 @@
-'use client';
-
+'use client'
+import React, { useState } from "react";
 import { useTransacoesContext } from "@/app/context/TransacoesContext";
 import Link from "next/link";
+import ModalConfirmacao from "../Modal";
+
 
 export default function ListaTransacoes() {
   const { transacoes, deletarTransacao } = useTransacoesContext();
   const transacoesExibidas = transacoes.slice(-5).reverse();
 
-  function handleDelete(transacaoId: number) {
-    const confirmDelete = confirm("Tem certeza que deseja deletar esta transação?");
-    if (confirmDelete) {
-      deletar(transacaoId);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [transacaoSelecionada, setTransacaoSelecionada] = useState<{
+    id: number;
+    tipoTransacao: string;
+    valor: number;
+    date: string;
+  } | null>(null);
+
+  function handleDelete(transacao: { id: number; tipoTransacao: string; valor: number; date: string }) {
+    setTransacaoSelecionada(transacao);
+    setModalIsOpen(true);
+  }
+
+  function confirmarDelete() {
+    if (transacaoSelecionada) {
+      deletarTransacao(transacaoSelecionada.id);
+      fecharModal();
     }
   }
 
-  function deletar(transacaoId: number) {
-    deletarTransacao(transacaoId);
+  function fecharModal() {
+    setModalIsOpen(false);
+    setTransacaoSelecionada(null);
   }
 
   return (
@@ -46,7 +62,7 @@ export default function ListaTransacoes() {
 
               <button
                 className="mt-2 px-2 py-1 bg-red-600 text-white rounded transition-colors duration-300 cursor-pointer text-xs hover:bg-red-500"
-                onClick={() => handleDelete(tran.id)}
+                onClick={() => handleDelete(tran)}
               >
                 Deletar
               </button>
@@ -56,6 +72,18 @@ export default function ListaTransacoes() {
           <li className="text-gray-600 text-center">Nenhuma transação encontrada</li>
         )}
       </ul>
+
+      {transacaoSelecionada && (
+        <ModalConfirmacao
+          isOpen={modalIsOpen}
+          onClose={fecharModal}
+          onConfirm={confirmarDelete}
+          tipoTransacao={transacaoSelecionada.tipoTransacao}
+          valor={transacaoSelecionada.valor}
+          date={transacaoSelecionada.date}
+          placeholder="Excluir Transação?"
+        />
+      )}
     </div>
   );
 }

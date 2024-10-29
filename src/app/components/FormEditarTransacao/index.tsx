@@ -1,3 +1,5 @@
+// FormEditarTransacao.tsx
+
 "use client";
 import { useTransacoesContext } from "@/app/context/TransacoesContext";
 import Input from "@/components/forms/Input";
@@ -5,6 +7,7 @@ import InputSelect, { InputSelectOption } from "@/components/forms/InputSelect";
 import Button from "@/components/ui/Button";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import ModalConfirmacao from "../Modal";
 
 interface FormEditarTransacaoProps {
   transacaoId: number;
@@ -108,32 +111,16 @@ export default function FormEditarTransacao({
 
         <Button type="submit" text="Atualizar Transação" color="blue" />
       </form>
-      {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h3 className="text-lg font-semibold mb-4">Confirmar Alterações</h3>
-            <p><strong>Tipo de Transação:</strong> {formData.tipoTransacao}</p>
-            <p><strong>Valor:</strong> R$ {formData.valor}</p>
-            <p><strong>Data:</strong> {new Date(formData.date).toLocaleDateString()}</p>
-
-            <div className="mt-6 flex justify-between">
-              <button
-                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
-                onClick={() => setShowModal(false)}
-              >
-                Cancelar
-              </button>
-              <button
-                className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
-                onClick={confirmarTransacao}
-                disabled={submitting}
-              >
-                Confirmar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <ModalConfirmacao
+        placeholder="Confirmar Alterações"
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        onConfirm={confirmarTransacao}
+        tipoTransacao={formData.tipoTransacao}
+        valor={formData.valor}
+        date={formData.date}
+        isSubmitting={submitting}
+      />
     </>
   );
 }

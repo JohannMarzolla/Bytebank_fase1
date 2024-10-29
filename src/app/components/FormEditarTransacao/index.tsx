@@ -1,5 +1,3 @@
-// FormEditarTransacao.tsx
-
 "use client";
 import { useTransacoesContext } from "@/app/context/TransacoesContext";
 import Input from "@/components/forms/Input";
@@ -80,6 +78,7 @@ export default function FormEditarTransacao({
     console.log("Formulário é válido.");
     return true;
   };
+  
 
   return (
     <>
@@ -106,7 +105,7 @@ export default function FormEditarTransacao({
           label="Data"
           style="dark"
           value={formData.date}
-          onValueChanged={(value) => handleChange("date", value)}
+          onValueChanged={(value) => handleChange("date", value) }
         />
 
         <Button type="submit" text="Atualizar Transação" color="blue" />

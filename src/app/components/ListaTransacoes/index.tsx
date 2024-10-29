@@ -54,18 +54,21 @@ export default function ListaTransacoes() {
                 <p className="text-black font-semibold text-lg">R$ {tran.valor}</p>
               </div>
 
-              <Link href={`/editarTransacao/${tran.id}`}>
-                <button className="mt-2 px-2 py-1 bg-blue-600 text-white rounded transition-colors duration-300 cursor-pointer mr-1 hover:bg-blue-500 text-xs">
-                  Editar
-                </button>
-              </Link>
-
-              <button
-                className="mt-2 px-2 py-1 bg-red-600 text-white rounded transition-colors duration-300 cursor-pointer text-xs hover:bg-red-500"
-                onClick={() => handleDelete(tran)}
-              >
-                Deletar
-              </button>
+              <div className="flex items-center gap-2 mt-2">
+                <Link href={`/editarTransacao/${tran.id}`}>
+                  <img 
+                    src="Editar.png" 
+                    alt="Ícone de editar" 
+                    className="w-8 h-8 cursor-pointer" 
+                  />
+                </Link>
+                <img 
+                  src="Deletar.png" 
+                  alt="Ícone de deletar" 
+                  className="w-8 h-8 cursor-pointer"
+                  onClick={() => handleDelete(tran)}
+                />
+              </div>
             </li>
           ))
         ) : (

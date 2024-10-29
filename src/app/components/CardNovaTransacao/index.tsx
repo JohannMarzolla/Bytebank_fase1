@@ -9,7 +9,7 @@ export default function CardNovaTransacao() {
   const { deposito, transferencia, novaTransacao , user } = useTransacoesContext();
   const userId = Number(user.id);
   return (
-    <div className="flex relative max-sm:flex-col max-sm:h-[650px] w-full bg-[#CBCBCB] rounded-[8px]">
+    <div className="flex relative max-sm:flex-col max-sm:h-[650px] w-full bg-fiap-light-gray rounded-[8px]">
       <div className="z-20 px-8 py-6">
         <h2 className="text-xl font-bold pb-3">Nova transação</h2>
 

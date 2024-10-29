@@ -6,8 +6,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        fiap: {
+          green: "#47A138",
+          gray: "#767676",
+          "light-gray": "#CBCBCB",
+          white: "#F8F8F8",
+          "light-green": "#E4EDE3",
+          "navy-blue": "#004D61",
+          red: "FF5031",
+          "light-blue": "#DEE9EA"
+        }
       },
     },
   },

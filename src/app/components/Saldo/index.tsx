@@ -14,7 +14,7 @@ export default function Saldo() {
   const saldoFormato = formatarMoeda(saldo || 0);
 
   return (
-    <div className="flex relative max-sm:flex-col max-sm:items-center max-sm:h-[600px] sm:min-h-[400px] w-full text-white bg-[#004D61] rounded-[8px]">
+    <div className="flex relative max-sm:flex-col max-sm:items-center max-sm:h-[600px] sm:min-h-[400px] w-full text-white bg-fiap-navy-blue rounded-[8px]">
       <div className="flex flex-col justify-between max-sm:text-center max-sm:p-10 max-sm:pb-0 max-sm:w-full w-1/2 z-20">
         <div className="flex flex-col sm:pt-8 sm:pl-8">
           <span className="pb-5 text-[25px] font-semibold"> Olá, {session?.user?.name}!</span>

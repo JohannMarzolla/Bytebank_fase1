@@ -19,11 +19,11 @@ export default function HeaderLogado(options: HeaderLogadoOptions) {
   };
 
   return (
-    <header className="flex justify-between items-center w-full bg-[#004D61] text-white h-24 px-6 md:px-14 lg:px-20">
+    <header className="flex justify-between items-center w-full bg-fiap-navy-blue text-white h-24 px-6 md:px-14 lg:px-20">
       <div className="container mx-auto flex justify-between items-center relative">
         <div className="sm:hidden">
           <button onClick={toggleMenu}>
-            <Icon className="text-[#FF5031]" name="menu" />
+            <Icon className="text-fiap-red" name="menu" />
           </button>
         </div>
 
@@ -41,9 +41,9 @@ export default function HeaderLogado(options: HeaderLogadoOptions) {
       </div>
 
       {isOpen && (
-        <div className="md:hidden absolute top-0 left-0 w-48 bg-[#E4EDE3] z-40 shadow-lg">
+        <div className="md:hidden absolute top-0 left-0 w-48 bg-fiap-light-green z-40 shadow-lg">
           <button className="absolute right-0 p-1" onClick={toggleMenu}>
-            <Icon className="!text-xl text-[#47A138]" name="close" />
+            <Icon className="!text-xl text-fiap-green" name="close" />
           </button>
 
           <div className="px-6">

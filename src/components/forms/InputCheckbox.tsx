@@ -20,7 +20,7 @@ export default function InputCheckbox(options: InputCheckboxOptions) {
   return (
     <div className={`flex flex-col ${options.className ?? ""}`}>
       <div className="flex items-center gap-3">
-        <input className="checkbox border-[#47A138]" name={options.name} type="checkbox" onChange={onValueChanged} />
+        <input className="checkbox border-fiap-green" name={options.name} type="checkbox" onChange={onValueChanged} />
         <InputLabel htmlFor={options.name} text={options.label} textBold={false} />
       </div>
       {options.error && <span className="text-red-500">{options.error}</span>}

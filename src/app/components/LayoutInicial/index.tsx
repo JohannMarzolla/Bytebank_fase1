@@ -19,7 +19,7 @@ export default function LayoutInicial({ children }: Readonly<{ children: React.R
 
   if (status === "loading") {
     return (
-      <div className="flex items-center justify-center h-screen bg-[#E4EDE3]">
+      <div className="flex items-center justify-center h-screen bg-fiap-light-green">
         <Loading />
       </div>
     );
@@ -30,7 +30,7 @@ export default function LayoutInicial({ children }: Readonly<{ children: React.R
   }
 
   return (
-    <div className="flex flex-col overflow-hidden h-screen w-screen bg-gradient-to-b from-[#004D61] to-[#FFFFFF]">
+    <div className="flex flex-col overflow-hidden h-screen w-screen bg-gradient-to-b from-fiap-navy-blue to-white">
       <HeaderInicial />
       <div className="flex flex-col justify-between h-full w-full overflow-x-hidden overflow-y-scroll">
         <main className="flex flex-col">{children}</main>

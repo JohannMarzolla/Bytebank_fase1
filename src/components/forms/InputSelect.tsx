@@ -30,7 +30,7 @@ export default function InputSelect(options: InputSelectOptions) {
       <InputLabel htmlFor={options.name} text={options.label} />
       {/* className="border border-gray-300 rounded p-2" */}
       <select
-        className={`input w-full border-[1px] ${style === "ligth" ? "border-[#DEE9EA]" : "border-[#004D61]"}`}
+        className={`input w-full border-[1px] ${style === "ligth" ? "border-fiap-light-blue" : "border-fiap-navy-blue"}`}
         name={options.name}
         value={options.value} 
         onChange={onValueChanged}

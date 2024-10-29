@@ -86,7 +86,7 @@ export default function NovaContaForm() {
   }
 
   return (
-    <div className="flex items-center flex-col bg-[#F8F8F8] md:max-w-[90%] lg:w-[650px] max-md:mx-[60px] max-sm:mx-6 h-auto rounded-[8px]">
+    <div className="flex items-center flex-col bg-fiap-white md:max-w-[90%] lg:w-[650px] max-md:mx-[60px] max-sm:mx-6 h-auto rounded-[8px]">
       <Image className="py-6 z-10" src="/ilustracao-nova-conta.png" width={230} height={170} alt="Imagem do login" />
 
       <form

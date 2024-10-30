@@ -1,9 +1,11 @@
 "use client";
 
+export type ButtonColors = "orange" | "blue" | "green" | "black" | "transparent" | "gray";
+
 export interface ButtonOptions {
   text: string;
   outlined?: boolean;
-  color?: "orange" | "blue" | "green" | "black" | "transparent";
+  color?: ButtonColors;
   type?: "submit" | "reset" | "button" | undefined;
   className?: string;
   onClick?: { (): void };
@@ -13,15 +15,17 @@ export default function Button(options: ButtonOptions) {
   function getColor() {
     switch (options.color) {
       case "green":
-        return "text-white bg-fiap-green border-fiap-green hover:bg-fiap-green";
+        return "text-white bg-fiap-green border-none hover:bg-fiap-green-hover";
       case "blue":
-        return "text-white bg-fiap-navy-blue border-fiap-navy-blue";
+        return "text-white bg-fiap-navy-blue border-none hover:bg-fiap-navy-blue-hover";
       case "black":
         return "text-white bg-black";
       case "transparent":
         return "text-black bg-transparent border-black";
+      case "gray":
+        return "text-gray-600 bg-gray-200 border-none";
       default:
-        return "text-white bg-fiap-red border-fiap-red";
+        return "text-white bg-fiap-red border-none hover:bg-fiap-red-hover";
     }
   }
 
@@ -47,9 +51,9 @@ export default function Button(options: ButtonOptions) {
   return (
     <button
       type={options.type}
-      className={`btn px-7 border-[2px] ${
-        options.outlined ? getOutlinedColor() : getColor()
-      } ${options.className || ""}`}
+      className={`btn px-7 border-[2px] ${options.outlined ? getOutlinedColor() : getColor()} ${
+        options.className || ""
+      }`}
       onClick={() => onClick()}
     >
       {options.text}

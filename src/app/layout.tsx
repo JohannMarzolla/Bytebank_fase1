@@ -3,6 +3,7 @@ import "./globals.css";
 import { TransacoesProvider } from "./context/TransacoesContext";
 import { SessionProvider } from "./context/SessionProvider";
 import LayoutInicial from "./components/LayoutInicial";
+import { FiltrosTransacoesProvider } from "./context/FiltroTransacoesContext";
 
 export const metadata: Metadata = {
   title: "Bytebank",
@@ -16,9 +17,11 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       </head>
       <SessionProvider>
         <TransacoesProvider>
+          <FiltrosTransacoesProvider>
           <body>
             <LayoutInicial>{children}</LayoutInicial>
           </body>
+          </FiltrosTransacoesProvider>
         </TransacoesProvider>
       </SessionProvider>
     </html>

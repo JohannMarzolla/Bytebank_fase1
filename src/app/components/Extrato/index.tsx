@@ -1,11 +1,13 @@
 "use client";
 
+import { useFiltrosTransacoesContext } from "@/app/context/FiltroTransacoesContext";
 import { useTransacoesContext } from "@/app/context/TransacoesContext";
 import Link from "next/link";
 
 export default function Extrato() {
   const { transacoes } = useTransacoesContext();
-  const transacoesExibidas = transacoes.slice(-5).reverse();
+  const {transacoesFiltradas} = useFiltrosTransacoesContext();
+  const transacoesExibidas = transacoesFiltradas.slice(-5).reverse();
 
   return (
     <div className="bg-gray-100 w-[282px] h-[900px] rounded-lg p-8">
@@ -18,13 +20,6 @@ export default function Extrato() {
             <img 
               src="Editar.png" 
               alt="icone de editar" 
-              className="w-10 h-10"
-            />
-          </Link>
-          <Link href="/transferencias">
-            <img 
-              src="/Deletar.png" 
-              alt="icone de deletar" 
               className="w-10 h-10"
             />
           </Link>

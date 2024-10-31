@@ -1,11 +1,18 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import { DeleteTransacao, getSaldo, getTransacoes, postSaldo, postTransacao, putTransacoes } from "../services/transacoesServices";
+import {
+  DeleteTransacao,
+  getSaldo,
+  getTransacoes,
+  postSaldo,
+  postTransacao,
+  putTransacoes,
+} from "../services/transacoesServices";
 import { useSession } from "next-auth/react";
 
-interface Transacao {
-  id?: number,
+export interface Transacao {
+  id?: number;
   userId: number;
   tipoTransacao: string;
   valor: number;
@@ -17,8 +24,7 @@ interface TransacoesContextData {
   saldo: number;
   deposito: (number: number) => Promise<void>;
   transferencia: (number: number) => Promise<void>;
-  novaTransacao: (
-  tipoTransacao: string, valor: number, date: string, userId: number) => Promise<void>;
+  novaTransacao: (tipoTransacao: string, valor: number, date: string, userId: number) => Promise<void>;
   atualizarTransacao: any;
   deletarTransacao: any;
   user: any;
@@ -28,11 +34,11 @@ const TransacoesContext = createContext<TransacoesContextData | undefined>(undef
 
 export function TransacoesProvider({ children }: { children: ReactNode }) {
   const { data: session } = useSession();
-  const user = session?.user as any || {};
+  const user = (session?.user as any) || {};
   const [transacoes, setTransacoes] = useState<Transacao[]>([]);
   const [saldo, setSaldo] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
- 
+
   useEffect(() => {
     if (session?.user?.id) {
       const fetchData = async () => {
@@ -98,15 +104,9 @@ export function TransacoesProvider({ children }: { children: ReactNode }) {
   };
 
   const novaTransacao = async (tipoTransacao: string, valor: number, date: string, userId: number) => {
-    const transacao: Transacao = 
-    { userId, 
-      tipoTransacao, 
-      valor, 
-      date 
-    };
+    const transacao: Transacao = { userId, tipoTransacao, valor, date };
     await postTransacao(transacao);
     await atualizaTransacoes();
-    
   };
 
   const atualizarTransacao = async (transacaoId: number, tipoTransacao: string, valor: number, date: string) => {
@@ -121,22 +121,19 @@ export function TransacoesProvider({ children }: { children: ReactNode }) {
     }
   };
 
-
-  const deletarTransacao = async(transacaoId : number) => {
+  const deletarTransacao = async (transacaoId: number) => {
     try {
       if (!transacaoId) throw new Error("Usuário não autenticado.");
       await DeleteTransacao(transacaoId);
       await atualizaTransacoes();
-      
     } catch (error) {
       console.error("Erro ao deletar a transação context:", error);
-      
     }
-  }
+  };
 
   return (
     <TransacoesContext.Provider
-      value={{ transacoes, saldo, deposito, transferencia, novaTransacao, atualizarTransacao ,deletarTransacao, user }}
+      value={{ transacoes, saldo, deposito, transferencia, novaTransacao, atualizarTransacao, deletarTransacao, user }}
     >
       {children}
     </TransacoesContext.Provider>
@@ -150,4 +147,3 @@ export function useTransacoesContext() {
   }
   return context;
 }
-

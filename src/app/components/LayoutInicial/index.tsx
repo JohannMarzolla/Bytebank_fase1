@@ -4,18 +4,9 @@ import { useSession } from "next-auth/react";
 import Footer from "../footer";
 import Loading from "@/components/ui/Loading";
 import HeaderInicial from "../HeaderInicial";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 export default function LayoutInicial({ children }: Readonly<{ children: React.ReactNode }>) {
   const { data: session, status } = useSession();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (status === "authenticated") {
-      router.push("/home");
-    }
-  }, [status, router]);
 
   if (status === "loading") {
     return (

@@ -8,12 +8,15 @@ const config: Config = {
       colors: {
         fiap: {
           green: "#47A138",
+          "green-hover": "#3d8531",
           gray: "#767676",
           "light-gray": "#CBCBCB",
-          white: "#F8F8F8",
+          white: "#F5F5F5",
           "light-green": "#E4EDE3",
           "navy-blue": "#004D61",
+          "navy-blue-hover": "#01657f",
           red: "#FF5031",
+          "red-hover": "#f53b1a",
           "light-blue": "#DEE9EA",
         },
       },

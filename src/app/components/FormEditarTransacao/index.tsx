@@ -17,8 +17,6 @@ export default function FormEditarTransacao(options: FormEditarTransacaoProps) {
   const { atualizarTransacao } = useTransacoesContext();
   const [formData, setFormData] = useState(options.transacao);
 
-  console.log(formData, options);
-
   const tiposTransacao: InputSelectOption[] = [
     { value: "", label: "Selecione o Tipo" },
     { value: "transferencia", label: "Transferência" },

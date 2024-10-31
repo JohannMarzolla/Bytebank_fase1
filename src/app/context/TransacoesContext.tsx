@@ -5,6 +5,7 @@ import {
   DeleteTransacao,
   getSaldo,
   getTransacoes,
+  getTransacao,
   postSaldo,
   postTransacao,
   putTransacoes,
@@ -116,6 +117,7 @@ export function TransacoesProvider({ children }: { children: ReactNode }) {
       const transacaoAtualizada = { transacaoId, tipoTransacao, valor, date };
       await putTransacoes(transacaoAtualizada);
       await atualizaTransacoes();
+      await atualizarSaldo();
     } catch (error) {
       console.error("Erro ao atualizar a transação:", error);
     }
@@ -125,6 +127,7 @@ export function TransacoesProvider({ children }: { children: ReactNode }) {
     try {
       if (!transacaoId) throw new Error("Usuário não autenticado.");
       await DeleteTransacao(transacaoId);
+      await atualizarSaldo();
       await atualizaTransacoes();
     } catch (error) {
       console.error("Erro ao deletar a transação context:", error);

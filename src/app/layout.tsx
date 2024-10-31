@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { TransacoesProvider } from "./context/TransacoesContext";
 import { SessionProvider } from "./context/SessionProvider";
-import LayoutInicial from "./components/LayoutInicial";
 import { FiltrosTransacoesProvider } from "./context/FiltroTransacoesContext";
 
 export const metadata: Metadata = {
@@ -18,9 +17,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       <SessionProvider>
         <TransacoesProvider>
           <FiltrosTransacoesProvider>
-          <body>
-            <LayoutInicial>{children}</LayoutInicial>
-          </body>
+            <body>{children}</body>
           </FiltrosTransacoesProvider>
         </TransacoesProvider>
       </SessionProvider>

@@ -29,8 +29,7 @@ export default class TransacoesRepository {
             ? saldo.total + (transacao.valor ?? 0)
             : saldo.total - (transacao.valor ?? 0);
 
-        newSaldo =
-          tipoTransacao === "transferencia" ? newSaldo - (transacao.valor ?? 0) : newSaldo + (transacao.valor ?? 0);
+        newSaldo = tipoTransacao === "transferencia" ? newSaldo - (valor ?? 0) : newSaldo + (valor ?? 0);
 
         await this.saldoRepository.updateSaldo(transacao.contaId, newSaldo);
       }

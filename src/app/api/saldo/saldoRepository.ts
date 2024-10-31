@@ -10,10 +10,15 @@ export default class SaldoRepository {
   }
 
   async updateSaldo(userId: number, novoSaldo: number): Promise<Saldo> {
-    return this.db.saldo.update({
-      where: { contaId: userId },
-      data: { total: novoSaldo },
-    });
+    const exist = await this.findByUserId(userId);
+    if (exist) {
+      return this.db.saldo.update({
+        where: { contaId: userId },
+        data: { total: novoSaldo },
+      });
+    }
+
+    return this.createSaldo(userId, novoSaldo);
   }
 
   async createSaldo(userId: number, initialBalance: number = 0): Promise<Saldo> {

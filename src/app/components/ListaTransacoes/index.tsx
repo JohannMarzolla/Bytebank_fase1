@@ -2,8 +2,9 @@
 
 import React, { useState } from "react";
 import { Transacao, useTransacoesContext } from "@/app/context/TransacoesContext";
-import ModalConfirmacao from "../Modal";
+import TransacaoConfirmDelete from "../TransacaoConfirmDelete";
 import TransacaoItem from "../TransacaoItem";
+import TransacaoEditModal from "../TransacaoEditModal";
 
 export interface ListaTransacoesOptions {
   transacoes: Transacao[];
@@ -12,12 +13,20 @@ export interface ListaTransacoesOptions {
 
 export default function ListaTransacoes(options: ListaTransacoesOptions) {
   const { deletarTransacao } = useTransacoesContext();
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [confirmDeleteIsOpen, setConfirmDeleteIsOpen] = useState(false);
+  const [editIsOpen, setEditIsOpen] = useState(false);
   const [transacaoSelecionada, setTransacaoSelecionada] = useState<Transacao | null>(null);
 
   function handleDelete(transacao: Transacao) {
     setTransacaoSelecionada(transacao);
-    setModalIsOpen(true);
+    setConfirmDeleteIsOpen(true);
+    setEditIsOpen(false);
+  }
+
+  function handleEdit(transacao: Transacao) {
+    setTransacaoSelecionada(transacao);
+    setConfirmDeleteIsOpen(false);
+    setEditIsOpen(true);
   }
 
   function confirmarDelete() {
@@ -27,8 +36,15 @@ export default function ListaTransacoes(options: ListaTransacoesOptions) {
     }
   }
 
+  function confirmarEdit() {
+    if (transacaoSelecionada) {
+      fecharModal();
+    }
+  }
+
   function fecharModal() {
-    setModalIsOpen(false);
+    setConfirmDeleteIsOpen(false);
+    setEditIsOpen(false);
     setTransacaoSelecionada(null);
   }
 
@@ -41,6 +57,7 @@ export default function ListaTransacoes(options: ListaTransacoesOptions) {
               key={tran.id || index}
               item={tran}
               showActions={options.showActions}
+              onEditClicked={() => handleEdit(tran)}
               onDeleteClicked={() => handleDelete(tran)}
             />
           ))
@@ -50,15 +67,22 @@ export default function ListaTransacoes(options: ListaTransacoesOptions) {
       </ul>
 
       {options.showActions && transacaoSelecionada && (
-        <ModalConfirmacao
-          isOpen={modalIsOpen}
-          onClose={fecharModal}
-          onConfirm={confirmarDelete}
-          tipoTransacao={transacaoSelecionada.tipoTransacao}
-          valor={transacaoSelecionada.valor}
-          date={transacaoSelecionada.date}
-          placeholder="Excluir Transação?"
-        />
+        <>
+          <TransacaoConfirmDelete
+            isOpen={confirmDeleteIsOpen}
+            onClose={fecharModal}
+            onConfirm={confirmarDelete}
+            tipoTransacao={transacaoSelecionada.tipoTransacao}
+            valor={transacaoSelecionada.valor}
+            date={transacaoSelecionada.date}
+          />
+          <TransacaoEditModal
+            isOpen={editIsOpen}
+            onClose={fecharModal}
+            onConfirm={confirmarEdit}
+            transacao={transacaoSelecionada}
+          />
+        </>
       )}
     </>
   );

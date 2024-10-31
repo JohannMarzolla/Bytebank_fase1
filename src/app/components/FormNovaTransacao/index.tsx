@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useState } from "react";
 import { TipoTransacao } from "../../../shared/types/TipoTransacao";
 import InputSelect, { InputSelectOption } from "@/components/forms/InputSelect";
@@ -14,16 +14,15 @@ type FormularioProps = {
 
 export default function FormNovaTransacao({ deposito, transferencia, novaTransacao, userId }: FormularioProps) {
   const [formData, setFormData] = useState({
-    tipoTransacao: "",
+    tipoTransacao: "deposito",
     valor: 0,
-    date: "",
+    date: new Date().toISOString(),
   });
 
   const tiposTransacao: InputSelectOption[] = [
     { value: "", label: "Selecione o Tipo" },
     { value: "transferencia", label: "Transferência" },
     { value: "deposito", label: "Depósito" },
-  
   ];
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -39,9 +38,9 @@ export default function FormNovaTransacao({ deposito, transferencia, novaTransac
   };
 
   const handleChange = (name: string, value: any) => {
-    setFormData((prevData) => ({ 
-      ...prevData, 
-      [name]: value 
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
     }));
   };
 
@@ -60,9 +59,9 @@ export default function FormNovaTransacao({ deposito, transferencia, novaTransac
   };
   const resetForm = () => {
     setFormData({
-      tipoTransacao: "",
+      tipoTransacao: "deposito",
       valor: 0,
-      date: "",
+      date: new Date().toISOString(),
     });
   };
   const isFormValid = () => {
@@ -80,11 +79,11 @@ export default function FormNovaTransacao({ deposito, transferencia, novaTransac
       console.log("Falha na validação: Data inválida.");
       return false;
     }
-  
+
     console.log("Formulário é válido.");
     return true;
   };
-  
+
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
       <InputSelect
@@ -100,7 +99,7 @@ export default function FormNovaTransacao({ deposito, transferencia, novaTransac
         type="number"
         label="Valor"
         style="dark"
-        value={formData.valor} 
+        value={formData.valor}
         onValueChanged={(value) => handleChange("valor", Number(value))}
       />
       <Input

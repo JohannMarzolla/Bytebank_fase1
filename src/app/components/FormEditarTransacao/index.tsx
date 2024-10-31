@@ -1,35 +1,33 @@
 "use client";
-import { useTransacoesContext } from "@/app/context/TransacoesContext";
+
+import { Transacao, useTransacoesContext } from "@/app/context/TransacoesContext";
 import Input from "@/components/forms/Input";
 import InputSelect, { InputSelectOption } from "@/components/forms/InputSelect";
 import Button from "@/components/ui/Button";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import ModalConfirmacao from "../Modal";
 
 interface FormEditarTransacaoProps {
-  transacaoId: number;
+  transacao: Transacao;
+  showCancel?: boolean;
+  onCancelClicked?: { (): void };
+  onConfirmClicked?: { (): void };
 }
 
-export default function FormEditarTransacao({
-  transacaoId,
-}: FormEditarTransacaoProps) {
+export default function FormEditarTransacao(options: FormEditarTransacaoProps) {
   const { atualizarTransacao } = useTransacoesContext();
-  const router = useRouter();
-  const [formData, setFormData] = useState({
-    tipoTransacao: "",
-    valor: 0,
-    date: "",
-  });
+  const [formData, setFormData] = useState(options.transacao);
 
-  const [showModal, setShowModal] = useState(false); 
-  const [submitting, setSubmitting] = useState(false); 
+  console.log(formData, options);
 
   const tiposTransacao: InputSelectOption[] = [
     { value: "", label: "Selecione o Tipo" },
     { value: "transferencia", label: "Transferência" },
     { value: "deposito", label: "Depósito" },
   ];
+
+  function onCancelClicked() {
+    if (options.onCancelClicked) options.onCancelClicked();
+  }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,7 +36,7 @@ export default function FormEditarTransacao({
       alert("Dados inválidos! Verifique os campos.");
       return;
     }
-    setShowModal(true);
+    confirmarTransacao();
   };
 
   const handleChange = (name: string, value: any) => {
@@ -49,14 +47,10 @@ export default function FormEditarTransacao({
   };
 
   const confirmarTransacao = () => {
-    setSubmitting(true);
     const { tipoTransacao, valor, date } = formData;
-    atualizarTransacao(transacaoId, tipoTransacao, valor, date);
-    setShowModal(false);
+    atualizarTransacao(options.transacao.id, tipoTransacao, valor, date);
 
-    setTimeout(() => {
-      router.push("/transferencias");
-    }, 1000); 
+    if (options.onConfirmClicked) options.onConfirmClicked();
   };
 
   const isFormValid = () => {
@@ -78,7 +72,6 @@ export default function FormEditarTransacao({
     console.log("Formulário é válido.");
     return true;
   };
-  
 
   return (
     <>
@@ -105,21 +98,14 @@ export default function FormEditarTransacao({
           label="Data"
           style="dark"
           value={formData.date}
-          onValueChanged={(value) => handleChange("date", value) }
+          onValueChanged={(value) => handleChange("date", value)}
         />
 
-        <Button type="submit" text="Atualizar Transação" color="blue" />
+        <div className="flex gap-4">
+          {options.showCancel && <Button type="button" text="Cancelar" color="red" onClick={onCancelClicked} />}
+          <Button type="submit" text="Atualizar transação" color="blue" />
+        </div>
       </form>
-      <ModalConfirmacao
-        placeholder="Confirmar Alterações"
-        isOpen={showModal}
-        onClose={() => setShowModal(false)}
-        onConfirm={confirmarTransacao}
-        tipoTransacao={formData.tipoTransacao}
-        valor={formData.valor}
-        date={formData.date}
-        isSubmitting={submitting}
-      />
     </>
   );
 }

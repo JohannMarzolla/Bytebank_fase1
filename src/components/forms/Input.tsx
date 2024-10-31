@@ -23,6 +23,14 @@ export default function Input(options: InputOptions) {
     options.onValueChanged(event.target.value);
   }
 
+  function getValue() {
+    if (options.value && options.type === "date") {
+      // Converte a data para o formato YYYY-MM-DD
+      return new Date(options.value).toISOString().split("T")[0];
+    }
+    return options.value;
+  }
+
   return (
     <div className={`flex flex-col gap-1 w-full h-full ${options.className ?? ""}`}>
       <InputLabel htmlFor={options.name} text={options.label} textBold={options.labelTextBold} />
@@ -32,7 +40,7 @@ export default function Input(options: InputOptions) {
         }`}
         name={options.name}
         type={options.type}
-        value={options.value}
+        value={getValue()}
         placeholder={options.placeholder}
         onChange={onValueChanged}
       />

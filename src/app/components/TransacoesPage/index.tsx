@@ -24,7 +24,7 @@ export default function TransacoesPage() {
   return (
     <div className="bg-fiap-white shadow-md rounded-lg p-6 w-126">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="font-bold text-lg">Transações</h2>
+        <h2 className="font-bold text-lg">Transferências</h2>
       </div>
 
       <div className="flex flex-col bg-white border-[1px] rounded border-fiap-light-blue px-4 pt-3 pb-5">

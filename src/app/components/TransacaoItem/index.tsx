@@ -18,6 +18,11 @@ export default function TransacaoItem(options: TransacaoItemOptions) {
   const date = formatarData(new Date(item.date));
   const valor = formatarMoeda(item.valor);
 
+  const tiposTransacao: {[key: string]: string} = {
+    'deposito': 'Depósito',
+    'transferencia': 'Transferência'
+  }
+
   function onDeleteClicked() {
     if (options.onDeleteClicked) options.onDeleteClicked();
   }
@@ -30,7 +35,7 @@ export default function TransacaoItem(options: TransacaoItemOptions) {
     <li className="list-none pb-4 border-b border-fiap-green/50">
       <p className="text-sm font-semibold text-fiap-green capitalize">{mes}</p>
       <div className="flex items-center justify-between">
-        <h3 className="capitalize">{item.tipoTransacao}</h3>
+        <h3 className="capitalize pr-2">{tiposTransacao[item.tipoTransacao]}</h3>
         <p className="text-gray-500 text-xs">{date}</p>
       </div>
       <div className={`flex justify-between items-center ${options.showActions ? "mt-2" : ""}`}>

@@ -27,13 +27,13 @@ export default function TransacaoItem(options: TransacaoItemOptions) {
   }
 
   return (
-    <li className="list-none py-4 border-b border-fiap-green/50">
+    <li className="list-none pb-4 border-b border-fiap-green/50">
       <p className="text-sm font-semibold text-fiap-green capitalize">{mes}</p>
       <div className="flex items-center justify-between">
         <h3 className="capitalize">{item.tipoTransacao}</h3>
         <p className="text-gray-500 text-xs">{date}</p>
       </div>
-      <div className="flex justify-between items-center  mt-2">
+      <div className={`flex justify-between items-center ${options.showActions ? "mt-2" : ""}`}>
         <p className="text-gray-800 font-semibold text-lg">{valor}</p>
         <div className={`flex items-center gap-2 ${!options.showActions ? "hidden" : ""}`}>
           <IconButton icon="edit" color="blue" onClick={onEditClicked} />

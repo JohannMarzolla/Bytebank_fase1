@@ -50,7 +50,7 @@ export default function ListaTransacoes(options: ListaTransacoesOptions) {
 
   return (
     <>
-      <ul className="flex flex-col gap-5 text-left pt-4">
+      <ul className="flex flex-col gap-5 text-left pt-5">
         {options.transacoes.length > 0 ? (
           options.transacoes.map((tran, index) => (
             <TransacaoItem

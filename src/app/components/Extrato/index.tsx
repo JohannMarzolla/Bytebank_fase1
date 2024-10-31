@@ -15,7 +15,7 @@ export default function Extrato() {
   }
 
   return (
-    <div className="bg-gray-100 w-[282px] h-[900px] rounded-lg p-8">
+    <div className="bg-gray-100 lg:w-[282px] h-[900px] rounded-lg p-8">
       <div className="flex items-center justify-between">
         <h2 className="text-black font-bold text-[25px] text-left">Extrato</h2>
         <IconButton icon="edit" color="blue" onClick={onEditClicked} />

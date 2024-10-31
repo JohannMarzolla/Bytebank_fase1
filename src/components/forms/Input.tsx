@@ -7,7 +7,7 @@ export interface InputOptions {
   name: string;
   label: string;
   type: string;
-  value: string | number;
+  value?: string | number;
   placeholder?: string;
   style?: "ligth" | "dark";
   error?: string;

@@ -13,10 +13,9 @@ export async function GET(req: NextRequest) {
   try {
     const transacoes = await transacoesRepository.getTransacoesByUserId(userId);
 
-    if (!transacoes || transacoes.length === 0) {
+    if (!transacoes ) {
       return NextResponse.json({ error: "transação não encontrada." }, { status: 404 });
     }
-
     return NextResponse.json(transacoes);
     
   } catch (error) {

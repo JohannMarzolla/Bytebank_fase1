@@ -52,3 +52,15 @@ Prisma é usado para modelar e gerenciar o banco de dados. O esquema do banco de
 ```bash
 npx prisma generate
 ```
+
+## Storybook
+
+Storybook é uma ferramenta para desenvolvimento isolado e documentação de componentes UI. Ele ajuda a visualizar e testar componentes de forma independente, o que facilita o desenvolvimento de interfaces mais robustas e reutilizáveis.
+
+Para rodar o Storybook no projeto, utilize o comando:
+
+```bash
+npm run storybook
+```
+
+Isso abrirá o Storybook no navegador, geralmente em [http://localhost:6006](http://localhost:6006), onde você poderá explorar os componentes disponíveis e interagir com suas variações.

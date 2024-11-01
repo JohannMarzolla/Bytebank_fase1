@@ -94,6 +94,7 @@ export function TransacoesProvider({ children }: { children: ReactNode }) {
   };
 
   const transferencia = async (valor: number) => {
+    if (!verificaSaldo(valor))return; 
     try {
       if (!user?.id) throw new Error("Usuário não autenticado.");
       const novoSaldo = saldo - valor;
@@ -105,9 +106,19 @@ export function TransacoesProvider({ children }: { children: ReactNode }) {
   };
 
   const novaTransacao = async (tipoTransacao: string, valor: number, date: string, userId: number) => {
+    if (!verificaSaldo(valor)){
+      return alert("saldo insuficiente")
+    }  
     const transacao: Transacao = { userId, tipoTransacao, valor, date };
     await postTransacao(transacao);
     await atualizaTransacoes();
+  };
+
+  const verificaSaldo = (valor: number): boolean => {
+    if (valor > saldo) {
+      return false;
+    }
+    return true;
   };
 
   const atualizarTransacao = async (transacaoId: number, tipoTransacao: string, valor: number, date: string) => {

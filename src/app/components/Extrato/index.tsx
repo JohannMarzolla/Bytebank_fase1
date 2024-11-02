@@ -1,14 +1,19 @@
-"use client";
-
 import { useFiltrosTransacoesContext } from "@/app/context/FiltroTransacoesContext";
 import ListaTransacoes from "../ListaTransacoes";
 import IconButton from "@/components/ui/IconButton";
 import { useRouter } from "next/navigation";
+import { Transacao } from "@/app/context/TransacoesContext";
 
-export default function Extrato() {
+interface ExtratoProps {
+  transacoesIniciais: Transacao[];
+}
+
+export default function Extrato({ transacoesIniciais }: ExtratoProps) {
   const router = useRouter();
   const { transacoesFiltradas } = useFiltrosTransacoesContext();
-  const transacoesExibidas = transacoesFiltradas.slice(-5).reverse();
+  const transacoesExibidas = (transacoesFiltradas.length > 0 ? transacoesFiltradas : transacoesIniciais)
+    .slice(-5)
+    .reverse();
 
   function onEditClicked() {
     router.push("/transferencias");

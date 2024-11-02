@@ -1,3 +1,4 @@
+// src/app/components/Saldo/index.tsx
 "use client";
 
 import { useTransacoesContext } from "@/app/context/TransacoesContext";
@@ -7,11 +8,11 @@ import Image from "next/image";
 import Icon from "@/components/ui/Icon";
 import { useSession } from "next-auth/react";
 
-export default function Saldo() {
+export default function Saldo({ saldo: saldoInicial }: { saldo: number }) {
   const { data: session } = useSession();
   const { saldo } = useTransacoesContext();
   const date: string = formatarData(new Date(), FormatoData.DIA_SEMANA_DIA_MES_ANO);
-  const saldoFormato = formatarMoeda(saldo || 0);
+  const saldoFormato = formatarMoeda(saldo || saldoInicial || 0);
 
   return (
     <div className="flex relative max-sm:flex-col max-sm:items-center max-sm:h-[600px] sm:min-h-[400px] w-full text-white bg-fiap-navy-blue rounded-[8px]">

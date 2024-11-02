@@ -1,8 +1,11 @@
 "use client";
 
 export interface InputLabelOptions {
-  htmlFor: string;
+  /** Texto do label */
   text: string;
+  /** Identificador do campo que o label faz parte */
+  htmlFor?: string;
+  /** Especifica se o texto do label deve ficar em negrito(bold). */
   textBold?: boolean;
 }
 

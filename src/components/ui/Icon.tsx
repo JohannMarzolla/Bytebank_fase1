@@ -1,7 +1,9 @@
 "use client";
 
 export interface IconOptions {
+  /** Nome do icone */
   name: string;
+  /** Estilos customizados. */
   className?: string;
 }
 

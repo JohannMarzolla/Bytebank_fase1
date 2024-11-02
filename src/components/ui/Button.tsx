@@ -1,19 +1,27 @@
 "use client";
 
-export type ButtonColors = "orange" | "red" | "blue" | "green" | "black" | "transparent" | "gray";
+export type ButtonColors = "orange" | "red" | "blue" | "green" | "black" | "gray";
 
 export interface ButtonOptions {
+  /** Texto do botão */
   text: string;
+  /** Especifica se o botão deve ter o estilo "outlined", ou seja, que apresente cor apenas nas bordas e no texto. */
   outlined?: boolean;
+  /** Cor do botão */
   color?: ButtonColors;
+  /** Tipo do botão */
   type?: "submit" | "reset" | "button" | undefined;
+  /** Estilos customizados. */
   className?: string;
+  /** Especifica que o botão esta desabilitado. */
   disabled?: boolean;
+  /** Função executada quando é clicado no botão */
   onClick?: { (): void };
 }
 
 export default function Button(options: ButtonOptions) {
   function getColor() {
+    if (options.disabled) return "";
     switch (options.color) {
       case "green":
         return "text-white bg-fiap-green border-none hover:bg-fiap-green-hover";
@@ -22,9 +30,7 @@ export default function Button(options: ButtonOptions) {
       case "red":
         return "text-white bg-fiap-red border-none hover:bg-fiap-red-hover";
       case "black":
-        return "text-white bg-black";
-      case "transparent":
-        return "text-black bg-transparent border-black";
+        return "text-white border-black bg-black";
       case "gray":
         return "text-gray-600 bg-gray-200 border-none";
       default:
@@ -33,6 +39,7 @@ export default function Button(options: ButtonOptions) {
   }
 
   function getOutlinedColor() {
+    if (options.disabled) return "";
     switch (options.color) {
       case "green":
         return "btn-outline text-fiap-green hover:bg-fiap-green hover:text-white hover:border-white";
@@ -41,9 +48,9 @@ export default function Button(options: ButtonOptions) {
       case "red":
         return "btn-outline text-fiap-red hover:bg-fiap-red hover:text-white hover:border-white";
       case "black":
-        return "btn-outline text-fiap-navy-blue hover:bg-fiap-navy-blue hover:text-white hover:border-white";
-      case "transparent":
         return "btn-outline text-black hover:bg-black hover:text-white hover:border-black";
+      case "gray":
+        return "btn-outline text-black border-gray-200 hover:bg-gray-200 hover:text-black hover:border-gray-200";
       default:
         return "btn-outline text-fiap-orange hover:bg-fiap-orange hover:text-white hover:border-white";
     }

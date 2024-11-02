@@ -21,7 +21,7 @@ export default async function Home() {
                 <Button color="black" text="Abrir minha conta" />
               </Link>
               <Link href="/login">
-                <Button color="transparent" text="Já tenho conta" outlined={true} />
+                <Button color="black" text="Já tenho conta" outlined={true} />
               </Link>
             </div>
             <div className="flex flex-wrap justify-between max-w-6xl mx-auto w-full mt-10 mb-10 px-10 gap-3">

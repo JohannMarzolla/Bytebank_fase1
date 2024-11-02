@@ -4,17 +4,26 @@ import { ChangeEvent } from "react";
 import InputLabel from "./InputLabel";
 
 export interface InputSelectOptions {
+  /** Identificador */
   name: string;
+  /** Texto do label */
   label: string;
-  value: string | number;
+  /** Valor da opção selecionada */
+  value?: string | number;
+  /** Erro */
   error?: string;
+  /** Opções disponíveis */
   options?: InputSelectOption[];
+  /** Estilo */
   style?: "ligth" | "dark";
-  onValueChanged: { (value: any): void };
+  /** Evento de alteração do valor. */
+  onValueChanged?: { (value: any): void };
 }
 
 export interface InputSelectOption {
+  /** Valor da opção, utilizado para identificar o valor selecionado. */
   value: any;
+  /** Texto exibido para o usuário */
   label: string;
 }
 
@@ -22,7 +31,7 @@ export default function InputSelect(options: InputSelectOptions) {
   const style = options.style ?? "ligth";
 
   function onValueChanged(event: ChangeEvent<HTMLSelectElement>) {
-    options.onValueChanged(event.target.value);
+    if (options.onValueChanged) options.onValueChanged(event.target.value);
   }
 
   return (
@@ -30,9 +39,11 @@ export default function InputSelect(options: InputSelectOptions) {
       <InputLabel htmlFor={options.name} text={options.label} />
       {/* className="border border-gray-300 rounded p-2" */}
       <select
-        className={`input w-full border-[1px] ${style === "ligth" ? "border-fiap-light-blue" : "border-fiap-navy-blue"}`}
+        className={`input w-full border-[1px] ${
+          style === "ligth" ? "border-fiap-light-blue" : "border-fiap-navy-blue"
+        }`}
         name={options.name}
-        value={options.value} 
+        value={options.value}
         onChange={onValueChanged}
       >
         {options.options?.length &&

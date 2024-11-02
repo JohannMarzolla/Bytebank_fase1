@@ -1,5 +1,13 @@
 "use client";
 
+/**
+ * Componente de Loading
+ *
+ * Este componente exibe uma animação de carregamento, 
+ * mostrando um círculo giratório e um texto "Carregando...".
+ *
+ * @returns {JSX.Element} Um elemento de carregamento que pode ser utilizado em outros componentes.
+ */
 export default function Loading() {
   return (
     <div className="flex flex-col items-center">

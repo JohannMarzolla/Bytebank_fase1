@@ -6,6 +6,8 @@ export interface ModalOptions {
   className?: string;
 }
 
+
+
 export default function Modal(options: ModalOptions) {
   if (!options.isOpen) return null;
 

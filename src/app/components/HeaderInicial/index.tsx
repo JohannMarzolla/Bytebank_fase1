@@ -24,7 +24,10 @@ export default function HeaderInicial() {
     <header className="w-full bg-black text-fiap-green h-24 flex px-6 md:px-14 lg:px-20">
       <div className="container mx-auto flex justify-between items-center relative">
         <div className="flex items-center max-sm:flex-row-reverse max-sm:w-full justify-between">
-          <Image className="lg:mr-12 block sm:hidden lg:block" src="/logo.svg" width={140} height={80} alt="Logo" />
+          <Link href="/"> 
+            <Image className="lg:mr-12 block sm:hidden lg:block" src="/logo.svg" width={140} height={80} alt="Logo" />
+          </Link>
+          
           <Image
             className="mr-12 hidden sm:block lg:hidden"
             src="/logo-bytebank-tablet.png"

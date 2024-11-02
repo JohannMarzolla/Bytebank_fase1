@@ -7,7 +7,7 @@ interface Transacao {
   date: string;
 }
 
-const API_URL = "http://localhost:3000/api"; // Altere para a URL completa
+const API_URL = "http://localhost:3000/api"; 
 
 export const getSaldo = async (userId: number) => {
   const response = await fetch(`${API_URL}/saldo?userId=${userId}`);

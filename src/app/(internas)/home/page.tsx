@@ -19,6 +19,6 @@ export default async function Home() {
   const transacoesIniciais = await getTransacoes(userId);
 
   return (
-    <Container saldoInicial={saldoInicial} transacoesIniciais={transacoesIniciais} />
+    <Container saldoInicial={saldoInicial} transacoesIniciais={transacoesIniciais}  userId={userId} />
   );
 }

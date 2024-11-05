@@ -76,7 +76,6 @@ export function TransacoesProvider({ children }: { children: ReactNode }) {
     try {
       if (!user?.id) return;
       const transacoesAtualizadas = await getTransacoes(user.id);
-      console.log("transacoesAtualizadas",transacoesAtualizadas)
       setTransacoes(transacoesAtualizadas);
     } catch (error) {
       console.log("Erro ao atualizar as transações", error);

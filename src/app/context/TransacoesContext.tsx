@@ -5,7 +5,6 @@ import {
   DeleteTransacao,
   getSaldo,
   getTransacoes,
-  getTransacao,
   postSaldo,
   postTransacao,
   putTransacoes,
@@ -34,7 +33,9 @@ interface TransacoesContextData {
 const TransacoesContext = createContext<TransacoesContextData | undefined>(undefined);
 
 export function TransacoesProvider({ children }: { children: ReactNode }) {
+
   const { data: session } = useSession();
+
   const user = (session?.user as any) || {};
   const [transacoes, setTransacoes] = useState<Transacao[]>([]);
   const [saldo, setSaldo] = useState<number>(0);
@@ -154,6 +155,7 @@ export function TransacoesProvider({ children }: { children: ReactNode }) {
     </TransacoesContext.Provider>
   );
 }
+
 
 export function useTransacoesContext() {
   const context = useContext(TransacoesContext);
